@@ -250,15 +250,13 @@ SELECT *
 FROM customers 
 WHERE city IN ('London','Paris','Berlin')
 
-
--- [실습 15] NOT IN 조건
--- 문제: 미국, 캐나다, 멕시코가 아닌 국가의 고객을 조회하시오.
-
 SELECT *
 FROM customers 
 WHERE city  NOT IN ('London','Paris','Berlin');
 
---이거 뭔지
+-- [실습 15] NOT IN 조건
+-- 문제: 미국, 캐나다, 멕시코가 아닌 국가의 고객을 조회하시오.
+
 SELECT
     company_name AS 회사명,
     country      AS 국가
@@ -457,6 +455,7 @@ WHERE region IS NOT null
 SELECT coalesce(region,'미지정')
 FROM customers 
 
+
 -- ※ COALESCE(a, b)는 a가 NULL이면 b를 반환한다.
 --   여러 개도 가능: COALESCE(a, b, c) → 첫 번째 NULL이 아닌 값
 
@@ -480,6 +479,7 @@ FROM customers
 
 SELECT DISTINCT city
 FROM customers
+ORDER BY city
 
 -- ※ DISTINCT 없이 실행하면 같은 도시가 여러 번 나온다.
 
@@ -489,6 +489,7 @@ FROM customers
 
 SELECT DISTINCT city,country
 FROM customers
+ORDER BY city,country
 
 -- ※ 국가만 중복 제거하는 것이 아니라
 --   (국가, 도시) 조합이 유일한 것만 남긴다.
@@ -499,7 +500,12 @@ FROM customers
 
 SELECT count(DISTINCT country)
 FROM customers
-   
+
+SELECT count(*)
+FROM (
+SELECT DISTINCT country
+FROM customers
+)AS sub;
 -- ※ COUNT(DISTINCT 컬럼)은 고유값 개수를 센다.
 
 
@@ -529,7 +535,7 @@ FROM customers
 
 SELECT  unit_price
 FROM products
-ORDER BY unit_price desc
+ORDER BY unit_price DESC;
 
 
 -- [실습 32] 여러 컬럼 정렬
@@ -537,7 +543,7 @@ ORDER BY unit_price desc
 
 SELECT country, city,company_name
 FROM customers
-ORDER BY country, city,company_name;
+ORDER BY country, city, company_name;
 
 
 
@@ -547,7 +553,7 @@ ORDER BY country, city,company_name;
 
 SELECT region
 FROM customers
-ORDER by region NULLS LAST
+ORDER by region DESC NULLS LAST;
 
 
 
@@ -579,7 +585,8 @@ ORDER by region NULLS LAST
 SELECT *
 FROM products
 ORDER BY unit_price desc
-LIMIT 5
+LIMIT 5;
+
 
 -- [실습 35] 페이징 처리
 -- 문제: 제품 목록을 10개씩 나눠서 1, 2, 3페이지를 각각 조회하시오.
@@ -608,9 +615,14 @@ OFFSET 20
 -- [실습 36] 조건 조합
 -- 문제: 독일 또는 프랑스 고객 중 도시가 B로 시작하는 곳을 조회하시오.
 
-SELECT *
+/*SELECT *
 FROM customers
 WHERE country IN ('Germany','Paris') AND city LIKE 'B%'
+*/
+SELECT *
+FROM customers
+where country IN ('Germany','Paris') 
+	AND city LIKE 'B%'
 
 -- [실습 37] 가격대별 제품
 -- 문제: 단가 20~50 사이 제품을 비싼 순으로 10개 조회하시오.
@@ -619,8 +631,13 @@ SELECT *
 FROM products
 WHERE unit_price BETWEEN 20 AND 50 
 ORDER BY unit_price DESC
+LIMIT 10;
+/*SELECT *
+FROM products
+WHERE unit_price BETWEEN 20 AND 50 
+ORDER BY unit_price DESC
 LIMIT 10
-
+*/
 
 -- [실습 38] 재고 부족 제품
 -- 문제: 재고가 10개 미만이고 단종(discontinued)되지 않은 제품을 조회하시오.
@@ -630,21 +647,22 @@ SELECT *
 FROM products
 WHERE units_in_stock < 10 AND  discontinued =0
 
+
 -- [실습 39] NULL 처리 종합
 -- 문제: 지역 정보가 없는 고객을 국가별로 정렬해서 조회하시오.
 
 SELECT DISTINCT country 
 FROM customers
-WHERE region  IS NULL  
+WHERE region  IS NULL;  
 
 SELECT country
 FROM customers c 
 WHERE c.region  IS NULL 
-GROUP BY c.country
+GROUP BY c.country;
 -- [실습 40] 계산 컬럼 + 조건
 -- 문제: 재고금액( unit_price * units_in_stock ) 이 1000 이상인 제품을 조회하시오.
 
-SELECT unit_price * units_in_stock AS 재고금액
+SELECT unit_price  재고,units_in_stock  금액,unit_price * units_in_stock AS 재고금액
 FROM products
 where unit_price * units_in_stock > 1000
 
@@ -655,42 +673,80 @@ where unit_price * units_in_stock > 1000
 
 -- Q1. products 테이블에서 제품명과 단가만 조회하시오. (10건)
 -- 정답:
-
-
+SELECT product_name , unit_price
+FROM products;
 
 -- Q2. 독일(Germany) 고객을 조회하시오.
 -- 정답:
+SELECT *
+FROM customers
+WHERE country = 'Germany';
 
 
 
 -- Q3. 단가가 100 이상인 제품을 조회하시오.
 -- 정답:
+SELECT *
+FROM products
+WHERE unit_price >=100;
 
 
 -- Q4. 도시가 London, Paris, Madrid 중 하나인 고객을 조회하시오.
 -- 정답:
-
+SELECT *
+FROM customers 
+where city in ('London','Paris','Madrid');
 
 -- Q5. 회사명에 'Market'이 포함된 고객을 대소문자 구분 없이 조회하시오.
 -- 정답:
-
+SELECT *
+FROM customers 
+WHERE company_name ILIKE '%Market%';
 
 -- Q6. 지역(region)이 NULL인 고객 수를 조회하시오.
 -- 정답:
-
-
+SELECT count(*)
+FROM customers
+WHERE region  IS NULL;
 
 -- Q7. 고객들이 있는 국가 목록을 중복 없이 조회하시오.
 -- 정답:
-
+SELECT DISTINCT c.country
+FROM customers c ;
 
 -- Q8. 1997년에 주문된 건수를 조회하시오.
 -- 정답:
+SELECT count(*)
+FROM orders 
+where order_date BETWEEN '1997-01-01' AND '1997-12-31';
 
+SELECT count(*)
+FROM orders
+WHERE TO_CHAR(order_date,'YYYY') = '1997';
+
+SELECT count(*)
+FROM orders
+WHERE Date_trunc('year',order_date)= '1997-01-01';
 
 
 -- Q9. 제품을 단가 낮은 순으로 정렬해서 3페이지(페이지당 10건)를 조회하시오.
 -- 정답:
+SELECT *
+FROM products
+ORDER BY unit_price ASC ,product_id ASC 
+LIMIT 10;
+--11~20
+SELECT *
+FROM products
+ORDER BY unit_price ASC ,product_id ASC 
+LIMIT 10
+OFFSET 10;
+--21_30
+SELECT *
+FROM products
+ORDER BY unit_price ASC ,product_id ASC
+LIMIT 10
+OFFSET 20;
 
 
 -- ※ 단가가 같은 제품이 있으므로 product_id를 함께 정렬해 페이지 결과를 고정한다.
@@ -698,8 +754,9 @@ where unit_price * units_in_stock > 1000
 
 -- Q10. 단가가 30 이상이면서 재고가 20 이상인 제품을 조회하시오.
 -- 정답:
-
-
+SELECT *
+FROM products 
+WHERE unit_price >= 30 AND units_in_stock >=20;
 
 -- =========================================================
 -- [개념] 가독성 있는 SQL 작성법
@@ -726,3 +783,17 @@ where unit_price * units_in_stock > 1000
 -- 참고: SQL Style Guide
 --   https://www.sqlstyle.guide/
 -- =========================================================
+
+SELECT (CURRENT_DATE + TIME '18:00:00')-now() AS 현재시간;
+
+
+SELECT *
+FROM pg_database
+WHERE datistemplate = FALSE
+ORDER BY
+
+
+SELECT *
+FROM orders
+WHERE employee_id  IN (1,2,4)
+ORDER BY employee_id ,customer_id 
