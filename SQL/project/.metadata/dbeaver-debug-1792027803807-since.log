@@ -1,0 +1,420 @@
+2026-10-15 10:30:05.152 - DBeaver 26.2.2.202610041844 is starting
+2026-10-15 10:30:05.152 - OS: Windows 11 10.0 (amd64)
+2026-10-15 10:30:05.152 - Java version: 25.0.4.1 by Microsoft (64bit)
+2026-10-15 10:30:05.153 - Install path: 'C:\Users\EZ\AppData\Local\DBeaver'
+2026-10-15 10:30:05.153 - Instance path: 'file:/C:/Users/EZ/AppData/Roaming/DBeaverData/workspace6/'
+2026-10-15 10:30:05.153 - Memory available 77Mb/1024Mb
+2026-10-15 10:30:05.156 - Initialize desktop platform...
+2026-10-15 10:30:05.227 - BounceCastle bundle found. Use JCE provider BC
+> Start Core File Systems [org.eclipse.core.filesystem 1.11.500.v20260721-1509]
+> Start Core Resource Management [org.eclipse.core.resources 3.24.100.v20260812-0827]
+> Start DBeaver UI Navigator [org.jkiss.dbeaver.ui.navigator 1.0.188.202610041844]
+> Start 팀 지원 핵심 [org.eclipse.team.core 3.10.1100.v20260612-1500]
+> Start 디버그 핵심 [org.eclipse.debug.core 3.24.0.v20260714-0955]
+> Start Internet Connection Management [org.eclipse.core.net 1.5.900.v20260507-0401]
+> Start JSch 핵심 [org.eclipse.jsch.core 1.5.800.v20260605-1311]
+2026-10-15 10:30:05.676 - Initialize base platform...
+2026-10-15 10:30:05.681 - Platform initialized (525ms)
+2026-10-15 10:30:05.704 - 	Patch workbench configuration
+2026-10-15 10:30:05.723 - 	Starting instance server at http://localhost:51335
+2026-10-15 10:30:05.728 - Run workbench
+> Start Eclipse e4 작업영역 SWT [org.eclipse.e4.ui.workbench.swt 0.18.200.v20260707-1437]
+> Start Eclipse Application Services [org.eclipse.e4.core.services 2.5.400.v20260430-1313]
+> Start Eclipse UI Application Services [org.eclipse.e4.ui.services 1.6.700.v20260430-1313]
+> Start Eclipse e4 Progress View [org.eclipse.e4.ui.progress 0.5.100.v20260516-1214]
+> Start Eclipse Bindings Support [org.eclipse.e4.ui.bindings 0.15.200.v20260616-1114]
+> Start Eclipse e4 core commands [org.eclipse.e4.core.commands 1.1.800.v20260430-1313]
+> Start EMF XML/XMI Persistence [org.eclipse.emf.ecore.xmi 2.41.0.v20260704-1256]
+> Start Eclipse e4 작업영역 기능 추가 [org.eclipse.e4.ui.workbench.addons.swt 1.6.100.v20260430-1313]
+Warning: NLS unused message: WorkbenchPreference_reuseEditorsThreshold in: org.eclipse.ui.internal.messages
+Warning: NLS unused message: 이유 in: org.eclipse.ui.internal.messages
+> Start Eclipse e4 작업영역 SWT 렌더러 [org.eclipse.e4.ui.workbench.renderers.swt 0.18.100.v20260622-1026]
+> Start Eclipse Dependency Injection Extensions [org.eclipse.e4.core.di.extensions 0.18.300.v20240413-1529]
+> Start DBeaver AI Model [org.jkiss.dbeaver.model.ai 2.0.31.202610041844]
+> Start DBeaver AI UI [org.jkiss.dbeaver.ui.ai 1.0.90.202610041844]
+> Start Eclipse CSS SWT Support [org.eclipse.e4.ui.css.swt 0.17.100.v20260730-1116]
+Warning: NLS unused message: IDEApplication_workspaceCannotLockTitle in: org.eclipse.ui.internal.ide.messages
+> Start Equinox Java Authentication and Authorization Service (JAAS) [org.eclipse.equinox.security 1.4.700.v20250622-1644]
+> Start 인터넷 연결 관리 사용자 인터페이스 [org.eclipse.ui.net 1.6.0.v20251219-1227]
+> Start GEF Classic Draw2d [org.eclipse.draw2d 3.23.100.202608071137]
+> Start GEF Classic GEF (MVC) [org.eclipse.gef 3.26.100.202608071137]
+> Start Eclipse CSS SWT Theme Support [org.eclipse.e4.ui.css.swt.theme 0.15.200.v20260806-0515]
+> Start JFace 텍스트 [org.eclipse.jface.text 3.31.100.v20260814-0956]
+> Start 텍스트 [org.eclipse.text 3.14.800.v20260815-0849]
+2026-10-15 10:30:06.675 - Configure workbench window
+> Start DBeaver Product Configuration UI [org.jkiss.dbeaver.ui.app.config 1.0.6.202610041844]
+> Start DBeaver UI Forms Toolkit [org.jkiss.dbeaver.ui.forms 1.0.16.202610041844]
+> Start JFace Data Binding [org.eclipse.core.databinding 1.13.800.v20260531-1157]
+> Start JFace Data Binding Properties [org.eclipse.core.databinding.property 1.10.500.v20250916-0931]
+> Start DBeaver Sample Database [org.jkiss.dbeaver.ui.config.sample 1.0.225.202610041844]
+> Start DBeaver SQL Model [org.jkiss.dbeaver.model.sql 1.0.178.202610041844]
+2026-10-15 10:30:15.165 - Create new datasource type 'mongodb'
+2026-10-15 10:30:15.166 - Create new datasource type 'cassandra'
+2026-10-15 10:30:15.166 - Create new datasource type 'salesforce'
+2026-10-15 10:30:15.166 - Create new datasource type 'couchbase'
+2026-10-15 10:30:15.167 - Create new datasource type 'redis'
+2026-10-15 10:30:15.167 - Create new datasource type 'timestream'
+2026-10-15 10:30:15.167 - Create new datasource type 'neo4j'
+2026-10-15 10:30:15.207 - Total database drivers: 139 (139)
+> Start 도움말 시스템 코어 [org.eclipse.help 3.11.200.v20260710-0925]
+2026-10-15 10:30:15.350 - Create actions
+> Start 기본 문서 편집기 [org.eclipse.ui.editors 3.22.100.v20260707-0708]
+> Start 텍스트 편집기 프레임워크 [org.eclipse.ui.workbench.texteditor 3.20.200.v20260728-1331]
+> Start DBeaver UI Editors - Data [org.jkiss.dbeaver.ui.editors.data 1.0.188.202610041844]
+> Start DBeaver UI Editors - SQL [org.jkiss.dbeaver.ui.editors.sql 1.0.188.202610041844]
+2026-10-15 10:30:29.261 - Initialize workbench window
+2026-10-15 10:30:29.298 - Finish initialization
+> Start DBeaver NIO Model [org.jkiss.dbeaver.model.nio 1.0.72.202610041844]
+> Start DBeaver Dashboard UI [org.jkiss.dbeaver.ui.dashboard 1.0.185.202610041844]
+> Start DBeaver ERD UI [org.jkiss.dbeaver.ui.editors.erd 3.1.29.202610041844]
+> Start DBeaver ERD Model [org.jkiss.dbeaver.model.erd 1.1.29.202610041844]
+2026-10-15 10:30:30.207 - Open [https://dbeaver.io/product/version.xml]
+> Start DBeaver PostgreSQL UI [org.jkiss.dbeaver.ext.postgresql.ui 1.0.164.202610041844]
+> Start DBeaver JDBC Model [org.jkiss.dbeaver.model.jdbc 1.0.81.202610041844]
+> Start DBeaver PostgreSQL Model [org.jkiss.dbeaver.ext.postgresql 2.1.261.202610041844]
+2026-10-15 10:30:48.516 - Service 'org.jkiss.dbeaver.ui.UIServiceConnectionEditor' not found
+2026-10-15 10:30:48.573 - Service 'org.jkiss.dbeaver.runtime.ui.UIServiceSecurity' not found
+2026-10-15 10:30:55.799 - Open [https://repo1.maven.org/maven2/org/postgresql/postgresql/42.7.13/postgresql-42.7.13.pom]
+2026-10-15 10:30:55.928 - Open [https://repo1.maven.org/maven2/org/checkerframework/checker-qual/3.55.1/checker-qual-3.55.1.pom]
+2026-10-15 10:30:55.963 - Open [https://repo1.maven.org/maven2/net/postgis/postgis-jdbc/2.5.0/postgis-jdbc-2.5.0.pom]
+2026-10-15 10:30:56.532 - Open [https://repo1.maven.org/maven2/net/postgis/postgis-java-aggregator/2.5.0/postgis-java-aggregator-2.5.0.pom]
+2026-10-15 10:30:56.566 - Open [https://repo1.maven.org/maven2/org/testcontainers/testcontainers-bom/1.13.0/testcontainers-bom-1.13.0.pom]
+2026-10-15 10:30:56.609 - Open [https://repo1.maven.org/maven2/net/postgis/postgis-geometry/2.5.0/postgis-geometry-2.5.0.pom]
+2026-10-15 10:30:56.644 - Open [https://repo1.maven.org/maven2/com/github/waffle/waffle-jna/3.5.1/waffle-jna-3.5.1.pom]
+2026-10-15 10:30:56.684 - Open [https://repo1.maven.org/maven2/com/github/waffle/waffle/3.5.1/waffle-3.5.1.pom]
+2026-10-15 10:30:56.728 - Open [https://repo1.maven.org/maven2/net/java/dev/jna/jna/5.16.0/jna-5.16.0.pom]
+2026-10-15 10:30:56.759 - Open [https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/5.16.0/jna-platform-5.16.0.pom]
+2026-10-15 10:30:56.794 - Open [https://repo1.maven.org/maven2/org/slf4j/jcl-over-slf4j/2.0.16/jcl-over-slf4j-2.0.16.pom]
+2026-10-15 10:30:56.825 - Open [https://repo1.maven.org/maven2/org/slf4j/slf4j-parent/2.0.16/slf4j-parent-2.0.16.pom]
+2026-10-15 10:30:56.860 - Open [https://repo1.maven.org/maven2/org/slf4j/slf4j-bom/2.0.16/slf4j-bom-2.0.16.pom]
+2026-10-15 10:30:56.937 - Open [https://repo1.maven.org/maven2/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16.pom]
+2026-10-15 10:30:56.972 - Open [https://repo1.maven.org/maven2/com/github/ben-manes/caffeine/caffeine/3.1.8/caffeine-3.1.8.pom]
+2026-10-15 10:30:57.011 - Open [https://repo1.maven.org/maven2/org/checkerframework/checker-qual/3.48.3/checker-qual-3.48.3.pom]
+2026-10-15 10:30:57.046 - Open [https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy/1.15.11/byte-buddy-1.15.11.pom]
+2026-10-15 10:30:57.078 - Open [https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy-parent/1.15.11/byte-buddy-parent-1.15.11.pom]
+2026-10-15 10:30:57.123 - Open [https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy-agent/1.15.11/byte-buddy-agent-1.15.11.pom]
+2026-10-15 10:30:57.198 - Open [https://repo1.maven.org/maven2/org/checkerframework/checker-qual/3.37.0/checker-qual-3.37.0.pom]
+2026-10-15 10:30:57.238 - Open [https://repo1.maven.org/maven2/com/google/errorprone/error_prone_annotations/2.21.1/error_prone_annotations-2.21.1.pom]
+2026-10-15 10:30:57.272 - Open [https://repo1.maven.org/maven2/com/google/errorprone/error_prone_parent/2.21.1/error_prone_parent-2.21.1.pom]
+2026-10-15 10:30:58.742 - Open [https://repo1.maven.org/maven2/org/postgresql/postgresql/42.7.13/postgresql-42.7.13.jar]
+2026-10-15 10:30:59.041 - Open [https://repo1.maven.org/maven2/org/checkerframework/checker-qual/3.55.1/checker-qual-3.55.1.jar]
+2026-10-15 10:30:59.112 - Open [https://repo1.maven.org/maven2/net/postgis/postgis-jdbc/2.5.0/postgis-jdbc-2.5.0.jar]
+2026-10-15 10:30:59.238 - Open [https://repo1.maven.org/maven2/net/postgis/postgis-geometry/2.5.0/postgis-geometry-2.5.0.jar]
+2026-10-15 10:30:59.398 - Open [https://repo1.maven.org/maven2/com/github/waffle/waffle-jna/3.5.1/waffle-jna-3.5.1.jar]
+2026-10-15 10:30:59.446 - Open [https://repo1.maven.org/maven2/net/java/dev/jna/jna/5.16.0/jna-5.16.0.jar]
+2026-10-15 10:30:59.822 - Open [https://repo1.maven.org/maven2/net/java/dev/jna/jna-platform/5.16.0/jna-platform-5.16.0.jar]
+2026-10-15 10:31:00.083 - Open [https://repo1.maven.org/maven2/org/slf4j/jcl-over-slf4j/2.0.16/jcl-over-slf4j-2.0.16.jar]
+2026-10-15 10:31:00.182 - Open [https://repo1.maven.org/maven2/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16.jar]
+2026-10-15 10:31:00.220 - Open [https://repo1.maven.org/maven2/com/github/ben-manes/caffeine/caffeine/3.1.8/caffeine-3.1.8.jar]
+2026-10-15 10:31:00.429 - Open [https://repo1.maven.org/maven2/org/checkerframework/checker-qual/3.48.3/checker-qual-3.48.3.jar]
+2026-10-15 10:31:00.492 - Open [https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy/1.15.11/byte-buddy-1.15.11.jar]
+2026-10-15 10:31:01.887 - Open [https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy-agent/1.15.11/byte-buddy-agent-1.15.11.jar]
+2026-10-15 10:31:01.975 - Open [https://repo1.maven.org/maven2/org/checkerframework/checker-qual/3.37.0/checker-qual-3.37.0.jar]
+2026-10-15 10:31:02.031 - Open [https://repo1.maven.org/maven2/com/google/errorprone/error_prone_annotations/2.21.1/error_prone_annotations-2.21.1.jar]
+2026-10-15 10:31:02.203 - Connect with 'PostgreSQL' (postgres-jdbc-1a13d2f0afd-64bd3c30ff8b485c)
+2026-10-15 10:31:02.231 - Execution context opened (PostgreSQL; Main <postgres>; 0)
+2026-10-15 10:31:02.237 - Initiate connection to PostgreSQL database [postgres@localhost] for Main <postgres>
+> Start DBeaver GIS Support [org.jkiss.dbeaver.data.gis 1.0.212.202610041844]
+2026-10-15 10:31:02.867 - Connected to a datasource: id='postgres-jdbc-1a13d2f0afd-64bd3c30ff8b485c', databaseProductName='PostgreSQL', databaseProductVersion='18.6
+PostgreSQL 18.6 on x86_64-windows, compiled by msvc-19.44.35229, 64-bit', driverName='PostgreSQL JDBC Driver', driverVersion='42.7.13'.
+2026-10-15 10:31:02.880 - Execution context closed (PostgreSQL, 0)
+2026-10-15 10:31:02.880 - Disconnected (postgres-jdbc-1a13d2f0afd-64bd3c30ff8b485c)
+2026-10-15 10:31:05.344 - Connect with 'PostgreSQL' (postgres-jdbc-1a13d2f30d0-1f4158b819b8ad89)
+2026-10-15 10:31:05.345 - Execution context opened (PostgreSQL; Main <postgres>; 1)
+2026-10-15 10:31:05.345 - Initiate connection to PostgreSQL database [postgres@localhost] for Main <postgres>
+2026-10-15 10:31:05.444 - Connected to a datasource: id='postgres-jdbc-1a13d2f30d0-1f4158b819b8ad89', databaseProductName='PostgreSQL', databaseProductVersion='18.6
+PostgreSQL 18.6 on x86_64-windows, compiled by msvc-19.44.35229, 64-bit', driverName='PostgreSQL JDBC Driver', driverVersion='42.7.13'.
+2026-10-15 10:31:05.456 - Execution context closed (PostgreSQL, 1)
+2026-10-15 10:31:05.456 - Disconnected (postgres-jdbc-1a13d2f30d0-1f4158b819b8ad89)
+2026-10-15 10:32:27.306 - Service 'org.jkiss.dbeaver.ui.UIServiceConnectionEditor' not found
+2026-10-15 10:32:27.342 - Service 'org.jkiss.dbeaver.runtime.ui.UIServiceSecurity' not found
+2026-10-15 10:32:33.645 - Connect with 'PostgreSQL' (postgres-jdbc-1a13d3089be-76c739cd3287a069)
+2026-10-15 10:32:33.646 - Execution context opened (PostgreSQL; Main <postgres>; 2)
+2026-10-15 10:32:33.646 - Initiate connection to PostgreSQL database [postgres@localhost] for Main <postgres>
+2026-10-15 10:32:33.735 - Connected to a datasource: id='postgres-jdbc-1a13d3089be-76c739cd3287a069', databaseProductName='PostgreSQL', databaseProductVersion='18.6
+PostgreSQL 18.6 on x86_64-windows, compiled by msvc-19.44.35229, 64-bit', driverName='PostgreSQL JDBC Driver', driverVersion='42.7.13'.
+2026-10-15 10:32:33.747 - Execution context closed (PostgreSQL, 2)
+2026-10-15 10:32:33.747 - Disconnected (postgres-jdbc-1a13d3089be-76c739cd3287a069)
+2026-10-15 10:32:47.079 - Connect with 'postgres' (postgres-jdbc-1a13d2eef18-1c6e9b5ed127511d)
+2026-10-15 10:32:47.080 - Execution context opened (postgres; Main <postgres>; 3)
+2026-10-15 10:32:47.081 - Initiate connection to PostgreSQL database [postgres@localhost] for Main <postgres>
+2026-10-15 10:32:47.139 - Execution context opened (postgres; Metadata <postgres>; 4)
+2026-10-15 10:32:47.140 - Initiate connection to PostgreSQL database [postgres@localhost] for Metadata <postgres>
+2026-10-15 10:32:47.207 - Connected to a datasource: id='postgres-jdbc-1a13d2eef18-1c6e9b5ed127511d', databaseProductName='PostgreSQL', databaseProductVersion='18.6
+PostgreSQL 18.6 on x86_64-windows, compiled by msvc-19.44.35229, 64-bit', driverName='PostgreSQL JDBC Driver', driverVersion='42.7.13'.
+Warning: NLS unused message: FindReplace_RegExCheckbox_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_WrapCheckBox_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_IncrementalCheckBox_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_Options in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_ReplaceSelectionButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_SelectedRangeRadioButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_SelectAllButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_GlobalRadioButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_WholeWordCheckBox_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_ReplaceFindButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_BackwardRadioButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_CloseButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_Replace_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_CaseCheckBox_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_Status_replacements_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_title in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_Direction in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_ReplaceAllButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_Scope in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_Find_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_ForwardRadioButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_FindNextButton_label in: org.eclipse.ui.texteditor.EditorMessages
+> Start DBeaver SQL Terminal [org.jkiss.dbeaver.ui.editors.sql.terminal 1.0.164.202610041844]
+> Start 핵심 비교 지원 [org.eclipse.compare.core 3.8.900.v20260731-0809]
+> Start 비교 지원 [org.eclipse.compare 3.12.200.v20260814-1536]
+> Start 콘솔 [org.eclipse.ui.console 3.17.100.v20260804-1532]
+2026-10-15 10:33:10.289 - Execution context opened (postgres; SQLEditor <Script.sql>; 5)
+2026-10-15 10:33:10.289 - Initiate connection to PostgreSQL database [postgres@localhost] for SQLEditor <Script.sql>
+> Start DBeaver Tasks - Native Tools UI [org.jkiss.dbeaver.tasks.native.ui 1.0.166.202610041844]
+> Start DBeaver Tasks - General UI [org.jkiss.dbeaver.tasks.ui 1.0.166.202610041844]
+> Start DBeaver SQL Language Semantic Model [org.jkiss.dbeaver.model.lsm 1.0.83.202610041844]
+> Start DBeaver Data Transfer [org.jkiss.dbeaver.data.transfer 2.0.172.202610041844]
+> Start Equinox Provisioning Metadata [org.eclipse.equinox.p2.metadata 2.9.800.v20260727-1351]
+2026-10-15 10:42:07.349 - Service 'org.jkiss.dbeaver.runtime.IEnvironmentPathMapper' not found
+> Start DBeaver Tasks View [org.jkiss.dbeaver.tasks.ui.view 1.0.137.202610041844]
+2026-10-15 10:56:41.454 - Execution context closed (postgres, 5)
+2026-10-15 10:57:05.963 - Execution context opened (postgres; SQLEditor <Script-1.sql>; 6)
+2026-10-15 10:57:05.964 - Initiate connection to PostgreSQL database [postgres@localhost] for SQLEditor <Script-1.sql>
+2026-10-15 10:57:14.931 - Delete empty SQL script '\General\Scripts\Script-1.sql'
+2026-10-15 10:57:14.942 - Execution context closed (postgres, 6)
+2026-10-15 10:57:16.339 - Execution context opened (postgres; SQLEditor <Script.sql>; 7)
+2026-10-15 10:57:16.339 - Initiate connection to PostgreSQL database [postgres@localhost] for SQLEditor <Script.sql>
+2026-10-15 11:01:41.183 - Execution context closed (postgres, 7)
+2026-10-15 11:01:52.195 - Execution context opened (postgres; SQLEditor <Script.sql>; 8)
+2026-10-15 11:01:52.196 - Initiate connection to PostgreSQL database [postgres@localhost] for SQLEditor <Script.sql>
+2026-10-15 11:03:03.843 - Token location is outside of the document boundaries during query parsing
+2026-10-15 11:03:36.677 - Token location is outside of the document boundaries during query parsing
+2026-10-15 11:15:30.870 - Token location is outside of the document boundaries during query parsing
+2026-10-15 11:38:10.475 - Service 'org.jkiss.dbeaver.runtime.IEnvironmentPathMapper' not found
+2026-10-15 11:42:39.065 - Execution context closed (postgres, 8)
+> Start 검색 지원 [org.eclipse.search 3.19.0.v20260427-1401]
+> Start Search Support Core [org.eclipse.search.core 3.16.700.v20260505-0615]
+2026-10-15 11:44:12.510 - Execution context opened (postgres; SQLEditor <Script.sql>; 9)
+2026-10-15 11:44:12.510 - Initiate connection to PostgreSQL database [postgres@localhost] for SQLEditor <Script.sql>
+2026-10-15 11:44:14.216 - Execution context closed (postgres, 9)
+2026-10-15 11:45:25.246 - Execution context opened (postgres; SQLEditor <Script.sql>; 10)
+2026-10-15 11:45:25.247 - Initiate connection to PostgreSQL database [postgres@localhost] for SQLEditor <Script.sql>
+> Start Data Transfer UI [org.jkiss.dbeaver.data.transfer.ui 1.0.172.202610041844]
+2026-10-15 11:49:21.011 - Service 'org.jkiss.dbeaver.ui.UIServiceConnectionEditor' not found
+2026-10-15 11:49:21.036 - Service 'org.jkiss.dbeaver.runtime.ui.UIServiceSecurity' not found
+2026-10-15 11:49:37.306 - Execution context closed (postgres, 3)
+2026-10-15 11:49:37.317 - Execution context closed (postgres, 4)
+2026-10-15 11:49:37.328 - Execution context closed (postgres, 10)
+2026-10-15 11:49:37.328 - Disconnected (postgres-jdbc-1a13d2eef18-1c6e9b5ed127511d)
+2026-10-15 11:49:37.344 - Connect with 'postgres' (postgres-jdbc-1a13d2eef18-1c6e9b5ed127511d)
+2026-10-15 11:49:37.346 - Execution context opened (postgres; Main <hd>; 11)
+2026-10-15 11:49:37.346 - Initiate connection to PostgreSQL database [hd@localhost] for Main <hd>
+2026-10-15 11:49:37.421 - Execution context opened (postgres; Metadata <hd>; 12)
+2026-10-15 11:49:37.421 - Initiate connection to PostgreSQL database [hd@localhost] for Metadata <hd>
+2026-10-15 11:49:37.524 - Connected to a datasource: id='postgres-jdbc-1a13d2eef18-1c6e9b5ed127511d', databaseProductName='PostgreSQL', databaseProductVersion='18.6
+PostgreSQL 18.6 on x86_64-windows, compiled by msvc-19.44.35229, 64-bit', driverName='PostgreSQL JDBC Driver', driverVersion='42.7.13'.
+2026-10-15 11:49:37.588 - Execution context opened (postgres; SQLEditor <Script.sql>; 13)
+2026-10-15 11:49:37.588 - Initiate connection to PostgreSQL database [hd@localhost] for SQLEditor <Script.sql>
+2026-10-15 11:50:19.145 - Execution context opened (postgres; SQLEditor <Script-1.sql>; 14)
+2026-10-15 11:50:19.145 - Initiate connection to PostgreSQL database [hd@localhost] for SQLEditor <Script-1.sql>
+2026-10-15 11:50:20.455 - Execution context closed (postgres, 13)
+2026-10-15 11:54:12.650 - Execution context opened (postgres; SQLEditor <1_환경설정.sql>; 15)
+2026-10-15 11:54:12.650 - Initiate connection to PostgreSQL database [hd@localhost] for SQLEditor <1_환경설정.sql>
+2026-10-15 11:55:29.606 - Token location is outside of the document boundaries during query parsing
+2026-10-15 11:59:12.134 - Service 'org.jkiss.dbeaver.ui.UIServiceConnectionEditor' not found
+2026-10-15 11:59:12.153 - Service 'org.jkiss.dbeaver.runtime.ui.UIServiceSecurity' not found
+2026-10-15 11:59:35.606 - Execution context closed (postgres, 14)
+2026-10-15 12:01:12.856 - Service 'org.jkiss.dbeaver.ui.UIServiceConnectionEditor' not found
+2026-10-15 12:01:12.873 - Service 'org.jkiss.dbeaver.runtime.ui.UIServiceSecurity' not found
+2026-10-15 12:40:43.932 - Execution context closed (postgres, 15)
+2026-10-15 12:40:43.950 - Execution context opened (postgres; SQLEditor <1_환경설정.sql>; 16)
+2026-10-15 12:40:43.951 - Initiate connection to PostgreSQL database [hd@localhost] for SQLEditor <1_환경설정.sql>
+2026-10-15 12:40:44.002 - Datasource user 'SQLEditor org.eclipse.ui.ide.FileStoreEditorInput@b0501b8b' already registered in datasource 'postgres'
+2026-10-15 13:03:44.727 - Execution context opened (postgres; SQLEditor <Script.sql>; 17)
+2026-10-15 13:03:44.728 - Initiate connection to PostgreSQL database [hd@localhost] for SQLEditor <Script.sql>
+2026-10-15 13:03:48.546 - Execution context closed (postgres, 17)
+2026-10-15 13:07:22.081 - Token location is outside of the document boundaries during query parsing
+2026-10-15 13:20:35.176 - Execution context opened (postgres; SQLEditor <Script-1.sql>; 18)
+2026-10-15 13:20:35.176 - Initiate connection to PostgreSQL database [hd@localhost] for SQLEditor <Script-1.sql>
+2026-10-15 13:20:37.635 - Execution context closed (postgres, 18)
+> Start DBeaver Dashboards Model [org.jkiss.dbeaver.model.dashboard 1.0.61.202610041844]
+2026-10-15 13:45:19.343 - Execution context opened (postgres; SQLEditor <Script-2.sql>; 19)
+2026-10-15 13:45:19.344 - Initiate connection to PostgreSQL database [hd@localhost] for SQLEditor <Script-2.sql>
+2026-10-15 13:45:20.990 - Delete empty SQL script '\General\Scripts\Script-2.sql'
+2026-10-15 13:45:21.000 - Execution context closed (postgres, 19)
+2026-10-15 13:45:32.002 - Execution context opened (postgres; SQLEditor <northwind.sql>; 20)
+2026-10-15 13:45:32.002 - Initiate connection to PostgreSQL database [hd@localhost] for SQLEditor <northwind.sql>
+2026-10-15 13:47:24.142 - Execution context closed (postgres, 16)
+2026-10-15 13:47:25.899 - Execution context closed (postgres, 20)
+2026-10-15 13:47:50.153 - Execution context opened (postgres; SQLEditor <1_환경설정.sql>; 21)
+2026-10-15 13:47:50.154 - Initiate connection to PostgreSQL database [hd@localhost] for SQLEditor <1_환경설정.sql>
+2026-10-15 13:49:48.076 - Execution context opened (postgres; SQLEditor <northwind.sql>; 22)
+2026-10-15 13:49:48.076 - Initiate connection to PostgreSQL database [hd@localhost] for SQLEditor <northwind.sql>
+2026-10-15 13:49:48.550 - Text parser rule inconsistency: rule failed and the scanned should have been fallbacked, but the current offset is different after attempt to evaluate org.jkiss.dbeaver.model.sql.parser.rules.SQLMultilineCommandRule@36f609da
+2026-10-15 13:49:48.550 - Text parser rule inconsistency: rule failed and the scanned should have been fallbacked, but the current offset is different after attempt to evaluate org.jkiss.dbeaver.model.sql.parser.rules.SQLMultilineCommandRule@1e35a0c2
+2026-10-15 13:49:48.550 - Text parser rule inconsistency: rule failed and the scanned should have been fallbacked, but the current offset is different after attempt to evaluate org.jkiss.dbeaver.model.sql.parser.rules.SQLDollarQuoteRule@571eb197
+2026-10-15 13:49:48.550 - Text parser rule inconsistency: rule failed and the scanned should have been fallbacked, but the current offset is different after attempt to evaluate org.jkiss.dbeaver.model.sql.parser.rules.SQLCommandRule@308cff10
+2026-10-15 13:49:48.550 - Text parser rule inconsistency: rule failed and the scanned should have been fallbacked, but the current offset is different after attempt to evaluate org.jkiss.dbeaver.ext.postgresql.sql.PostgreEscapeStringRule@1a31a5e0
+2026-10-15 13:49:48.550 - Text parser rule inconsistency: rule failed and the scanned should have been fallbacked, but the current offset is different after attempt to evaluate org.jkiss.dbeaver.model.sql.parser.rules.SQLCommandRule@1551586a
+2026-10-15 13:49:48.550 - Text parser rule inconsistency: rule failed and the scanned should have been fallbacked, but the current offset is different after attempt to evaluate org.jkiss.dbeaver.model.sql.parser.rules.SQLMultilineCommandRule@11da8c5c
+2026-10-15 13:49:48.550 - Text parser rule inconsistency: rule failed and the scanned should have been fallbacked, but the current offset is different after attempt to evaluate org.jkiss.dbeaver.model.sql.parser.rules.SQLCommandRule@13ef3bc3
+2026-10-15 13:50:03.951 - Execution context opened (postgres; SQLEditor <Script.sql>; 23)
+2026-10-15 13:50:03.952 - Initiate connection to PostgreSQL database [hd@localhost] for SQLEditor <Script.sql>
+2026-10-15 13:50:05.373 - Execution context opened (postgres; SQLEditor <Script-1.sql>; 24)
+2026-10-15 13:50:05.373 - Initiate connection to PostgreSQL database [hd@localhost] for SQLEditor <Script-1.sql>
+2026-10-15 13:50:06.723 - Execution context closed (postgres, 23)
+2026-10-15 13:50:07.592 - Execution context closed (postgres, 24)
+2026-10-15 13:52:29.791 - Table 'hd.mfg.tb_steel' not found in metadata catalog
+2026-10-15 13:52:29.791 - Table 'hd.mfg.tb_steel' not found in metadata catalog
+2026-10-15 13:52:29.791 - Table 'hd.mfg.tb_steel' not found in metadata catalog
+2026-10-15 13:52:29.791 - Table 'hd.mfg.tb_steel' not found in metadata catalog
+2026-10-15 13:52:29.791 - Table 'hd.mfg.tb_steel' not found in metadata catalog
+2026-10-15 13:52:29.791 - Table 'hd.mfg.tb_steel' not found in metadata catalog
+2026-10-15 13:52:29.791 - Table 'hd.mfg.tb_steel' not found in metadata catalog
+2026-10-15 13:52:29.791 - Table 'hd.mfg.tb_steel' not found in metadata catalog
+2026-10-15 13:52:29.791 - Table 'hd.mfg.tb_steel' not found in metadata catalog
+2026-10-15 13:52:29.791 - Table 'hd.mfg.tb_steel' not found in metadata catalog
+2026-10-15 13:52:29.791 - Table 'hd.mfg.tb_steel' not found in metadata catalog
+2026-10-15 13:52:29.915 - Table 'hd.mfg.tb_ai4i' not found in metadata catalog
+2026-10-15 13:52:30.011 - Table 'hd.mfg.tb_ai4i' not found in metadata catalog
+2026-10-15 13:52:30.012 - Table 'hd.mfg.tb_ai4i' not found in metadata catalog
+2026-10-15 13:52:30.012 - Table 'hd.mfg.tb_ai4i' not found in metadata catalog
+2026-10-15 13:52:30.012 - Table 'hd.mfg.tb_ai4i' not found in metadata catalog
+2026-10-15 13:52:30.012 - Table 'hd.mfg.tb_ai4i' not found in metadata catalog
+2026-10-15 13:52:30.012 - Table 'hd.mfg.tb_ai4i' not found in metadata catalog
+2026-10-15 13:52:30.012 - Table 'hd.mfg.tb_ai4i' not found in metadata catalog
+2026-10-15 13:52:30.012 - Table 'hd.mfg.tb_ai4i' not found in metadata catalog
+2026-10-15 13:52:30.012 - Table 'hd.mfg.tb_ai4i' not found in metadata catalog
+2026-10-15 13:52:30.012 - Table 'hd.mfg.tb_ai4i' not found in metadata catalog
+2026-10-15 13:52:30.012 - Table 'hd.mfg.tb_ai4i' not found in metadata catalog
+2026-10-15 13:52:30.012 - Table 'hd.mfg.tb_ai4i' not found in metadata catalog
+2026-10-15 13:52:30.012 - Table 'hd.mfg.tb_ai4i' not found in metadata catalog
+2026-10-15 13:52:30.012 - Table 'hd.mfg.tb_ai4i' not found in metadata catalog
+2026-10-15 13:57:11.638 - Execution context opened (Steel_industry_data.csv; Main; 25)
+2026-10-15 14:00:49.993 - Attribute does not support updating its max length
+2026-10-15 14:00:49.993 - Attribute does not support updating its precision
+2026-10-15 14:00:49.993 - Attribute does not support updating its scale
+2026-10-15 14:00:49.993 - Attribute does not support updating its max length
+2026-10-15 14:00:49.993 - Attribute does not support updating its precision
+2026-10-15 14:00:49.993 - Attribute does not support updating its scale
+2026-10-15 14:00:50.107 - Execution context opened (postgres; Data transfer consumer; 26)
+2026-10-15 14:00:50.108 - Initiate connection to PostgreSQL database [hd@localhost] for Data transfer consumer
+2026-10-15 14:01:57.119 - Invalidate context [postgres/Data transfer consumer] transactions
+2026-10-15 14:01:58.977 - Execution context closed (postgres, 26)
+2026-10-15 14:01:58.977 - Execution context closed (Steel_industry_data.csv, 25)
+> Start DBeaver Tasks - Native Tools [org.jkiss.dbeaver.tasks.native 1.0.166.202610041844]
+2026-10-15 14:04:48.853 - Execution context opened (postgres; Data transfer consumer; 27)
+2026-10-15 14:04:48.853 - Initiate connection to PostgreSQL database [hd@localhost] for Data transfer consumer
+2026-10-15 14:05:36.104 - Invalidate context [postgres/Data transfer consumer] transactions
+2026-10-15 14:05:37.551 - Execution context closed (postgres, 27)
+2026-10-15 14:05:37.551 - Execution context closed (Steel_industry_data.csv, 25)
+2026-10-15 14:06:04.272 - Execution context opened (postgres; Data transfer consumer; 28)
+2026-10-15 14:06:04.272 - Initiate connection to PostgreSQL database [hd@localhost] for Data transfer consumer
+2026-10-15 14:06:17.868 - Invalidate context [postgres/Data transfer consumer] transactions
+2026-10-15 14:06:19.065 - Execution context closed (postgres, 28)
+2026-10-15 14:06:19.066 - Execution context closed (Steel_industry_data.csv, 25)
+2026-10-15 14:09:05.769 - Execution context opened (postgres; Data transfer consumer; 29)
+2026-10-15 14:09:05.769 - Initiate connection to PostgreSQL database [hd@localhost] for Data transfer consumer
+2026-10-15 14:09:15.263 - Invalidate context [postgres/Data transfer consumer] transactions
+2026-10-15 14:09:16.509 - Execution context closed (postgres, 29)
+2026-10-15 14:09:16.511 - Execution context closed (Steel_industry_data.csv, 25)
+2026-10-15 14:09:45.073 - Execution context opened (Steel_industry_data.csv; Main; 30)
+2026-10-15 14:10:28.215 - Execution context opened (postgres; Data transfer consumer; 31)
+2026-10-15 14:10:28.215 - Initiate connection to PostgreSQL database [hd@localhost] for Data transfer consumer
+2026-10-15 14:10:32.430 - Invalidate context [postgres/Data transfer consumer] transactions
+2026-10-15 14:10:33.644 - Execution context closed (postgres, 31)
+2026-10-15 14:10:33.648 - Execution context closed (Steel_industry_data.csv, 30)
+2026-10-15 14:15:38.448 - Execution context opened (Steel_industry_data.csv; Main; 32)
+2026-10-15 14:15:46.506 - Execution context opened (postgres; Data transfer consumer; 33)
+2026-10-15 14:15:46.506 - Initiate connection to PostgreSQL database [hd@localhost] for Data transfer consumer
+2026-10-15 14:15:48.690 - Invalidate context [postgres/Data transfer consumer] transactions
+2026-10-15 14:15:49.936 - Execution context closed (postgres, 33)
+2026-10-15 14:15:49.979 - Execution context closed (Steel_industry_data.csv, 32)
+2026-10-15 14:16:20.110 - Execution context opened (postgres; Data transfer consumer; 34)
+2026-10-15 14:16:20.110 - Initiate connection to PostgreSQL database [hd@localhost] for Data transfer consumer
+2026-10-15 14:16:51.701 - Invalidate context [postgres/Data transfer consumer] transactions
+2026-10-15 14:16:52.866 - Execution context closed (postgres, 34)
+2026-10-15 14:16:52.866 - Execution context closed (Steel_industry_data.csv, 32)
+2026-10-15 14:17:07.952 - 	Search PG class
+2026-10-15 14:19:27.308 - Execution context opened (postgres; Data transfer consumer; 35)
+2026-10-15 14:19:27.309 - Initiate connection to PostgreSQL database [hd@localhost] for Data transfer consumer
+2026-10-15 14:19:28.337 - Execution context closed (postgres, 35)
+2026-10-15 14:19:28.384 - Execution context closed (Steel_industry_data.csv, 32)
+2026-10-15 14:29:23.961 - Execution context opened (ai4i2020.csv; Main; 36)
+2026-10-15 14:29:28.638 - 	Search PG class
+2026-10-15 14:30:46.536 - Execution context opened (postgres; Data transfer consumer; 37)
+2026-10-15 14:30:46.536 - Initiate connection to PostgreSQL database [hd@localhost] for Data transfer consumer
+2026-10-15 14:30:53.512 - Invalidate context [postgres/Data transfer consumer] transactions
+2026-10-15 14:30:54.544 - Execution context closed (postgres, 37)
+2026-10-15 14:30:54.544 - Execution context closed (ai4i2020.csv, 36)
+2026-10-15 14:31:11.235 - 	Search PG class
+2026-10-15 14:31:45.136 - Execution context opened (postgres; Data transfer consumer; 38)
+2026-10-15 14:31:45.136 - Initiate connection to PostgreSQL database [hd@localhost] for Data transfer consumer
+2026-10-15 14:31:45.698 - Execution context closed (postgres, 38)
+2026-10-15 14:31:45.753 - Execution context closed (ai4i2020.csv, 36)
+2026-10-15 14:31:56.736 - Execution context opened (postgres; SQLEditor <Script-1.sql>; 39)
+2026-10-15 14:31:56.737 - Initiate connection to PostgreSQL database [hd@localhost] for SQLEditor <Script-1.sql>
+2026-10-15 14:31:58.542 - Execution context opened (postgres; SQLEditor <Script.sql>; 40)
+2026-10-15 14:31:58.542 - Initiate connection to PostgreSQL database [hd@localhost] for SQLEditor <Script.sql>
+2026-10-15 14:40:56.098 - Execution context opened (PdM_machines.csv; Main; 41)
+2026-10-15 14:41:07.993 - Execution context opened (postgres; Data transfer consumer; 42)
+2026-10-15 14:41:07.993 - Initiate connection to PostgreSQL database [hd@localhost] for Data transfer consumer
+2026-10-15 14:41:08.091 - Execution context closed (postgres, 42)
+2026-10-15 14:41:08.194 - Execution context closed (PdM_machines.csv, 41)
+2026-10-15 14:41:34.318 - Execution context opened (PdM_telemetry.csv; Main; 43)
+2026-10-15 14:41:43.360 - Execution context opened (postgres; Data transfer consumer; 44)
+2026-10-15 14:41:43.361 - Initiate connection to PostgreSQL database [hd@localhost] for Data transfer consumer
+2026-10-15 14:42:20.032 - Execution context closed (postgres, 44)
+2026-10-15 14:42:20.113 - Execution context closed (PdM_telemetry.csv, 43)
+2026-10-15 14:42:44.546 - Execution context opened (PdM_errors.csv; Main; 45)
+2026-10-15 14:42:55.446 - Execution context opened (postgres; Data transfer consumer; 46)
+2026-10-15 14:42:55.446 - Initiate connection to PostgreSQL database [hd@localhost] for Data transfer consumer
+2026-10-15 14:42:55.575 - Execution context closed (postgres, 46)
+2026-10-15 14:42:55.764 - Execution context closed (PdM_errors.csv, 45)
+2026-10-15 14:43:08.909 - Execution context opened (PdM_failures.csv; Main; 47)
+2026-10-15 14:43:13.158 - Execution context opened (postgres; Data transfer consumer; 48)
+2026-10-15 14:43:13.158 - Initiate connection to PostgreSQL database [hd@localhost] for Data transfer consumer
+2026-10-15 14:43:13.275 - Execution context closed (postgres, 48)
+2026-10-15 14:43:13.340 - Execution context closed (PdM_failures.csv, 47)
+2026-10-15 14:43:28.480 - Execution context opened (PdM_maint.csv; Main; 49)
+2026-10-15 14:43:33.549 - Execution context opened (postgres; Data transfer consumer; 50)
+2026-10-15 14:43:33.549 - Initiate connection to PostgreSQL database [hd@localhost] for Data transfer consumer
+2026-10-15 14:43:33.750 - Execution context closed (postgres, 50)
+2026-10-15 14:43:33.812 - Execution context closed (PdM_maint.csv, 49)
+2026-10-15 14:49:15.200 - Listener ObjectInformationView$3 {} [layout=GridLayout {marginWidth=5 marginHeight=5 horizontalSpacing=5 verticalSpacing=5}] wasn't registered in model
+2026-10-15 14:58:34.972 - Execution context closed (postgres, 40)
+2026-10-15 15:00:13.719 - Listener ObjectInformationView$3 {} [layout=GridLayout {marginWidth=5 marginHeight=5 horizontalSpacing=5 verticalSpacing=5}] wasn't registered in model
+2026-10-15 15:00:14.740 - Listener ObjectInformationView$3 {} [layout=GridLayout {marginWidth=5 marginHeight=5 horizontalSpacing=5 verticalSpacing=5}] wasn't registered in model
+2026-10-15 15:11:27.756 - No presentations for result set [JDBCResultSetImpl]
+2026-10-15 15:14:32.644 - Listener ObjectInformationView$3 {} [layout=GridLayout {marginWidth=5 marginHeight=5 horizontalSpacing=5 verticalSpacing=5}] wasn't registered in model
+Warning: NLS unused message: FolderDescription_SavingUndoInfoProgress in: org.eclipse.ui.internal.ide.undo.messages
+Warning: NLS unused message: FileDescription_ContentsCouldNotBeRestored in: org.eclipse.ui.internal.ide.undo.messages
+Warning: NLS unused message: FolderDescription_NewFolderProgress in: org.eclipse.ui.internal.ide.undo.messages
+Warning: NLS unused message: FileDescription_NewFileProgress in: org.eclipse.ui.internal.ide.undo.messages
+2026-10-15 15:51:56.295 - Execution context opened (postgres; SQLEditor <Script.sql>; 51)
+2026-10-15 15:51:56.296 - Initiate connection to PostgreSQL database [hd@localhost] for SQLEditor <Script.sql>
+2026-10-15 15:52:17.159 - Service 'org.jkiss.dbeaver.runtime.IEnvironmentPathMapper' not found
+2026-10-15 15:52:25.606 - Service 'org.jkiss.dbeaver.runtime.IEnvironmentPathMapper' not found
+2026-10-15 15:55:12.398 - Service 'org.jkiss.dbeaver.runtime.IEnvironmentPathMapper' not found
+2026-10-15 15:56:34.319 - Service 'org.jkiss.dbeaver.runtime.IEnvironmentPathMapper' not found
+2026-10-15 15:57:07.559 - Execution context closed (postgres, 21)
+2026-10-15 15:57:07.650 - Execution context closed (postgres, 22)
+2026-10-15 15:57:07.715 - Execution context closed (postgres, 39)
+2026-10-15 15:57:07.799 - Execution context closed (postgres, 51)
+2026-10-15 15:57:09.136 - Dispose navigator model
+2026-10-15 15:57:09.163 - DBeaver is stopping
+2026-10-15 15:57:09.164 - Stop instance server
+2026-10-15 15:57:09.165 - Instance server has been stopped
+2026-10-15 15:57:09.190 - DBeaver shutdown completed
+2026-10-15 15:57:09.297 - Shutdown desktop platform...
+2026-10-15 15:57:09.301 - Some data source listeners are still registered: org.jkiss.dbeaver.ui.editors.sql.SQLEditor:SQLEditor org.eclipse.ui.ide.FileStoreEditorInput@b0501b8b,org.jkiss.dbeaver.ui.editors.sql.SQLEditor:SQLEditor org.eclipse.ui.part.FileEditorInput(/hd/Scripts/Script-1.sql),org.jkiss.dbeaver.ui.editors.sql.SQLEditor:SQLEditor org.eclipse.ui.part.FileEditorInput(/hd/Scripts/Script.sql)
+2026-10-15 15:57:09.315 - Execution context closed (postgres, 11)
+2026-10-15 15:57:09.326 - Execution context closed (postgres, 12)
+2026-10-15 15:57:09.327 - Disconnected (postgres-jdbc-1a13d2eef18-1c6e9b5ed127511d)
+2026-10-15 15:57:09.729 - Platform shutdown completed (430ms)
+2026-10-15 15:57:09.744 - Metadata is read before workspace initialization
+2026-10-15 15:57:09.753 - Metadata is read before workspace initialization
+2026-10-15 15:57:10.215 - Send collected statistics
+2026-10-15 15:57:10.216 - Metadata is read before workspace initialization
+2026-10-15 15:57:10.223 - Open [https://stats.dbeaver.com/send-statistics?session=ceffd123-3039-4edd-a94a-13b2cdb445ee&time=1792047429]
+2026-10-15 15:57:11.125 - Statistics sent (OK)

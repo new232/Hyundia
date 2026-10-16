@@ -1,0 +1,4 @@
+INSERT INTO USERS (ID, name, age)
+VALUES
+    (3, '이영희', 22),
+    (4, '박민수', 27);

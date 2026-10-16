@@ -123,7 +123,6 @@
 
 -- [실습 2] 현재 접속한 사용자 확인
 -- 문제: 현재 접속 중인 사용자명을 조회하시오.
- 	select current_user ;
 
 -- ※ 설치 직후에는 보통 postgres 이다.
 
@@ -240,7 +239,7 @@ create table customers(
 ALTER TABLE customers
 ALTER COLUMN country  TYPE VARCHAR(50);
 
-insert into customers 
+INSERT  into customers 
 values 
 	('ALFKI' ,'Alfres Futterkiste' , 'Maria Anders' , 'Berlin' ,'Germany')
 --
@@ -879,23 +878,43 @@ SELECT 'PdM - telemetry',           COUNT(*), 876100 FROM pdm.pdm_telemetry;
 -- =========================================================
 
 -- Q1. 현재 PostgreSQL 서버의 버전을 조회하시오.
-
-
+--SELECT version()
+SELECT version()
 -- Q2. 현재 접속한 데이터베이스명을 조회하시오.
 
+select current_database()
 
+--SELECT current_database()
 -- Q3. public 스키마의 테이블 목록을 조회하시오.
+SELECT table_name
+FROM information_schema.TABLES
+WHERE TABLE_schema = 'public'
 
+--SELECT *
+--FROM information_schema.TABLES
+--WHERE table_schema = 'public'
 
 -- Q4. ai4i 테이블의 제품 품질 유형별 건수를 조회하시오.
 
+SELECT product_type AS 제품유형,count(*) AS 건수
+FROM mfg.tb_ai4i
+GROUP BY product_type 
+--SELECT product_type  AS 제품풀질유형 , COUNT(*) AS 건수
+--FROM mfg.tb_ai4i
+--GROUP BY product_type 
 
 -- Q5. pdm_failures 테이블의 데이터를 10건만 조회하시오.
+--SELECT *
+--FROM pdm.pdm_failures
+--LIMIT 10
 
-
-
+SELECT *
+FROM pdm.pdm_failures pf
+LIMIT 10
 -- Q6. ai4i 테이블의 컬럼 정보를 조회하시오.
-
+--SELECT column_name
+--FROM information_schema.columns
+--WHERE table_schema = 'mfg' AND table_name = 'tb_ai4i'
 
 
 -- =========================================================
@@ -925,3 +944,5 @@ SELECT 'PdM - telemetry',           COUNT(*), 876100 FROM pdm.pdm_telemetry;
 --   MySQL : `order`
 --   PostgreSQL : "order"
 -- =========================================================
+
+

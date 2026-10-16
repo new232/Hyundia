@@ -1,0 +1,23 @@
+{
+  "C:\\Users\\EZ\\Desktop\\Hyundai\\SQL\\1_환경설정.sql": {
+    "default-schema": "hd",
+    "sql-editor-project-id": "General",
+    "sql-editor-data-source-id": "postgres-jdbc-1a13d2eef18-1c6e9b5ed127511d",
+    "default-datasource": "postgres-jdbc-1a13d2eef18-1c6e9b5ed127511d",
+    "default-catalog": "hd"
+  },
+  "C:\\Users\\EZ\\Downloads\\1_환경설정.sql": {
+    "default-schema": "hd",
+    "sql-editor-project-id": "General",
+    "sql-editor-data-source-id": "postgres-jdbc-1a13d2eef18-1c6e9b5ed127511d",
+    "default-datasource": "postgres-jdbc-1a13d2eef18-1c6e9b5ed127511d",
+    "default-catalog": "hd"
+  },
+  "C:\\Users\\EZ\\Desktop\\Hyundai\\SQL\\northwind.sql": {
+    "default-schema": "hd",
+    "sql-editor-project-id": "General",
+    "sql-editor-data-source-id": "postgres-jdbc-1a13d2eef18-1c6e9b5ed127511d",
+    "default-datasource": "postgres-jdbc-1a13d2eef18-1c6e9b5ed127511d",
+    "default-catalog": "hd"
+  }
+}

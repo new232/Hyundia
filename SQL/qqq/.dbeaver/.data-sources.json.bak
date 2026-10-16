@@ -1,0 +1,44 @@
+{
+	"folders": {},
+	"connections": {
+		"postgres-jdbc-1a13ea43ddb-a389741b4448e22": {
+			"provider": "postgresql",
+			"driver": "postgres-jdbc",
+			"name": "qqq",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "5432",
+				"database": "qqq",
+				"url": "jdbc:postgresql://localhost:5432/qqq",
+				"configurationType": "MANUAL",
+				"home": "postgresql-x64-18",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-show-non-default-db@": "false"
+				},
+				"auth-model": "native"
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"colorDark": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"smart-commit": false,
+			"smart-commit-recover": true,
+			"auto-close-transactions": true,
+			"close-transactions-period": 1800,
+			"auto-close-connections": true,
+			"close-connections-period": 14400,
+			"security": {
+				"permission-restrictions": []
+			}
+		}
+	}
+}

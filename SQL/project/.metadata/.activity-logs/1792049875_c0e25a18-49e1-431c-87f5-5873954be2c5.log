@@ -1,0 +1,5 @@
+2453:APP_OPEN:startTime=1792049869483
+6077:GENERAL_SHOW_PERSPECTIVE:perspective=org.jkiss.dbeaver.core.perspective
+6077:GENERAL_VIEW_OPEN:view=org.jkiss.dbeaver.core.projectNavigator
+6662:CONNECTION_OPEN:origin=local&driver=postgresql:postgres-jdbc
+6930:SQL_EDITOR_OPEN:driver=postgresql:postgres-jdbc

@@ -1,0 +1,141 @@
+2026-10-15 16:14:49.845 - DBeaver 26.2.2.202610041844 is starting
+2026-10-15 16:14:49.846 - OS: Windows 11 10.0 (amd64)
+2026-10-15 16:14:49.846 - Java version: 25.0.4.1 by Microsoft (64bit)
+2026-10-15 16:14:49.846 - Install path: 'C:\Users\EZ\AppData\Local\DBeaver'
+2026-10-15 16:14:49.847 - Instance path: 'file:/C:/Users/EZ/AppData/Roaming/DBeaverData/workspace6/'
+2026-10-15 16:14:49.847 - Memory available 64Mb/1024Mb
+2026-10-15 16:14:49.850 - Initialize desktop platform...
+2026-10-15 16:14:49.952 - BounceCastle bundle found. Use JCE provider BC
+> Start Core File Systems [org.eclipse.core.filesystem 1.11.500.v20260721-1509]
+> Start Core Resource Management [org.eclipse.core.resources 3.24.100.v20260812-0827]
+> Start DBeaver UI Navigator [org.jkiss.dbeaver.ui.navigator 1.0.188.202610041844]
+> Start 팀 지원 핵심 [org.eclipse.team.core 3.10.1100.v20260612-1500]
+2026-10-15 16:14:50.203 - Initialize base platform...
+2026-10-15 16:14:50.228 - Schedule collected statistics send
+2026-10-15 16:14:50.229 - Platform initialized (378ms)
+2026-10-15 16:14:50.235 - 	Create display
+2026-10-15 16:14:50.368 - 	Patch workbench configuration
+2026-10-15 16:14:50.487 - 	Starting instance server at http://localhost:62733
+2026-10-15 16:14:50.491 - Run workbench
+> Start Eclipse e4 작업영역 SWT [org.eclipse.e4.ui.workbench.swt 0.18.200.v20260707-1437]
+> Start Eclipse Application Services [org.eclipse.e4.core.services 2.5.400.v20260430-1313]
+> Start Eclipse UI Application Services [org.eclipse.e4.ui.services 1.6.700.v20260430-1313]
+> Start Eclipse e4 Progress View [org.eclipse.e4.ui.progress 0.5.100.v20260516-1214]
+> Start Eclipse Bindings Support [org.eclipse.e4.ui.bindings 0.15.200.v20260616-1114]
+> Start Eclipse e4 core commands [org.eclipse.e4.core.commands 1.1.800.v20260430-1313]
+> Start EMF XML/XMI Persistence [org.eclipse.emf.ecore.xmi 2.41.0.v20260704-1256]
+> Start Eclipse e4 작업영역 기능 추가 [org.eclipse.e4.ui.workbench.addons.swt 1.6.100.v20260430-1313]
+Warning: NLS unused message: WorkbenchPreference_reuseEditorsThreshold in: org.eclipse.ui.internal.messages
+Warning: NLS unused message: 이유 in: org.eclipse.ui.internal.messages
+> Start Eclipse e4 작업영역 SWT 렌더러 [org.eclipse.e4.ui.workbench.renderers.swt 0.18.100.v20260622-1026]
+> Start Eclipse Dependency Injection Extensions [org.eclipse.e4.core.di.extensions 0.18.300.v20240413-1529]
+> Start DBeaver AI Model [org.jkiss.dbeaver.model.ai 2.0.31.202610041844]
+> Start DBeaver AI UI [org.jkiss.dbeaver.ui.ai 1.0.90.202610041844]
+> Start Eclipse CSS SWT Support [org.eclipse.e4.ui.css.swt 0.17.100.v20260730-1116]
+Warning: NLS unused message: IDEApplication_workspaceCannotLockTitle in: org.eclipse.ui.internal.ide.messages
+> Start Internet Connection Management [org.eclipse.core.net 1.5.900.v20260507-0401]
+> Start Equinox Java Authentication and Authorization Service (JAAS) [org.eclipse.equinox.security 1.4.700.v20250622-1644]
+> Start 인터넷 연결 관리 사용자 인터페이스 [org.eclipse.ui.net 1.6.0.v20251219-1227]
+> Start GEF Classic Draw2d [org.eclipse.draw2d 3.23.100.202608071137]
+> Start GEF Classic GEF (MVC) [org.eclipse.gef 3.26.100.202608071137]
+> Start Eclipse CSS SWT Theme Support [org.eclipse.e4.ui.css.swt.theme 0.15.200.v20260806-0515]
+> Start JFace 텍스트 [org.eclipse.jface.text 3.31.100.v20260814-0956]
+> Start 텍스트 [org.eclipse.text 3.14.800.v20260815-0849]
+> Start 기본 문서 편집기 [org.eclipse.ui.editors 3.22.100.v20260707-0708]
+> Start 텍스트 편집기 프레임워크 [org.eclipse.ui.workbench.texteditor 3.20.200.v20260728-1331]
+> Start DBeaver UI Editors - Data [org.jkiss.dbeaver.ui.editors.data 1.0.188.202610041844]
+> Start DBeaver SQL Model [org.jkiss.dbeaver.model.sql 1.0.178.202610041844]
+> Start DBeaver UI Editors - SQL [org.jkiss.dbeaver.ui.editors.sql 1.0.188.202610041844]
+2026-10-15 16:14:51.744 - Configure workbench window
+2026-10-15 16:14:51.857 - Create new datasource type 'mongodb'
+2026-10-15 16:14:51.857 - Create new datasource type 'cassandra'
+2026-10-15 16:14:51.858 - Create new datasource type 'salesforce'
+2026-10-15 16:14:51.858 - Create new datasource type 'couchbase'
+2026-10-15 16:14:51.858 - Create new datasource type 'redis'
+2026-10-15 16:14:51.858 - Create new datasource type 'timestream'
+2026-10-15 16:14:51.858 - Create new datasource type 'neo4j'
+2026-10-15 16:14:51.876 - Total database drivers: 139 (139)
+> Start 도움말 시스템 코어 [org.eclipse.help 3.11.200.v20260710-0925]
+2026-10-15 16:14:51.914 - Create actions
+2026-10-15 16:14:52.431 - Initialize workbench window
+2026-10-15 16:14:52.454 - Finish initialization
+> Start DBeaver Sample Database [org.jkiss.dbeaver.ui.config.sample 1.0.225.202610041844]
+2026-10-15 16:14:53.278 - Open [https://dbeaver.io/product/version.xml]
+> Start DBeaver SQL Language Semantic Model [org.jkiss.dbeaver.model.lsm 1.0.83.202610041844]
+> Start DBeaver Tasks View [org.jkiss.dbeaver.tasks.ui.view 1.0.137.202610041844]
+2026-10-15 16:19:22.654 - Open external file(s) [[C:\Users\EZ\Desktop\Hyundai\SQL\1_환경설정.sql]]
+Warning: NLS unused message: FindReplace_RegExCheckbox_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_WrapCheckBox_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_IncrementalCheckBox_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_Options in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_ReplaceSelectionButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_SelectedRangeRadioButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_SelectAllButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_GlobalRadioButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_WholeWordCheckBox_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_ReplaceFindButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_BackwardRadioButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_CloseButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_Replace_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_CaseCheckBox_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_Status_replacements_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_title in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_Direction in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_ReplaceAllButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_Scope in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_Find_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_ForwardRadioButton_label in: org.eclipse.ui.texteditor.EditorMessages
+Warning: NLS unused message: FindReplace_FindNextButton_label in: org.eclipse.ui.texteditor.EditorMessages
+> Start DBeaver SQL Terminal [org.jkiss.dbeaver.ui.editors.sql.terminal 1.0.164.202610041844]
+> Start 핵심 비교 지원 [org.eclipse.compare.core 3.8.900.v20260731-0809]
+> Start 비교 지원 [org.eclipse.compare 3.12.200.v20260814-1536]
+> Start DBeaver JDBC Model [org.jkiss.dbeaver.model.jdbc 1.0.81.202610041844]
+> Start DBeaver PostgreSQL Model [org.jkiss.dbeaver.ext.postgresql 2.1.261.202610041844]
+2026-10-15 16:19:23.673 - Connect with 'postgres' (postgres-jdbc-1a13d2eef18-1c6e9b5ed127511d)
+2026-10-15 16:19:23.708 - Execution context opened (postgres; Main <hd>; 0)
+2026-10-15 16:19:23.718 - Initiate connection to PostgreSQL database [hd@localhost] for Main <hd>
+> Start 콘솔 [org.eclipse.ui.console 3.17.100.v20260804-1532]
+> Start 디버그 핵심 [org.eclipse.debug.core 3.24.0.v20260714-0955]
+> Start DBeaver GIS Support [org.jkiss.dbeaver.data.gis 1.0.212.202610041844]
+2026-10-15 16:19:23.959 - Execution context opened (postgres; Metadata <hd>; 1)
+2026-10-15 16:19:23.960 - Initiate connection to PostgreSQL database [hd@localhost] for Metadata <hd>
+2026-10-15 16:19:24.111 - Connected to a datasource: id='postgres-jdbc-1a13d2eef18-1c6e9b5ed127511d', databaseProductName='PostgreSQL', databaseProductVersion='18.6
+PostgreSQL 18.6 on x86_64-windows, compiled by msvc-19.44.35229, 64-bit', driverName='PostgreSQL JDBC Driver', driverVersion='42.7.13'.
+2026-10-15 16:19:24.121 - Execution context opened (postgres; SQLEditor <1_환경설정.sql>; 2)
+2026-10-15 16:19:24.122 - Initiate connection to PostgreSQL database [hd@localhost] for SQLEditor <1_환경설정.sql>
+> Start DBeaver PostgreSQL UI [org.jkiss.dbeaver.ext.postgresql.ui 1.0.164.202610041844]
+2026-10-15 16:19:43.427 - Service 'org.jkiss.dbeaver.ui.UIServiceConnectionEditor' not found
+2026-10-15 16:19:43.479 - Service 'org.jkiss.dbeaver.runtime.ui.UIServiceSecurity' not found
+> Start DBeaver Tasks - Native Tools UI [org.jkiss.dbeaver.tasks.native.ui 1.0.166.202610041844]
+> Start DBeaver Tasks - General UI [org.jkiss.dbeaver.tasks.ui 1.0.166.202610041844]
+> Start DBeaver ERD UI [org.jkiss.dbeaver.ui.editors.erd 3.1.29.202610041844]
+> Start DBeaver Dashboard UI [org.jkiss.dbeaver.ui.dashboard 1.0.185.202610041844]
+> Start DBeaver ERD Model [org.jkiss.dbeaver.model.erd 1.1.29.202610041844]
+> Start DBeaver NIO Model [org.jkiss.dbeaver.model.nio 1.0.72.202610041844]
+2026-10-15 16:19:57.109 - Execution context opened (postgres; SQLEditor <Script.sql>; 3)
+2026-10-15 16:19:57.109 - Initiate connection to PostgreSQL database [hd@localhost] for SQLEditor <Script.sql>
+2026-10-15 16:19:58.445 - Execution context closed (postgres, 3)
+2026-10-15 16:20:02.496 - Service 'org.jkiss.dbeaver.ui.UIServiceConnectionEditor' not found
+2026-10-15 16:20:02.534 - Service 'org.jkiss.dbeaver.runtime.ui.UIServiceSecurity' not found
+2026-10-15 16:20:49.728 - Core Exception caught while reading saved collapsed folding positions: Resource '/hd/Scripts/Script.sql' does not exist.
+2026-10-15 16:20:49.743 - Core Exception caught while reading saved collapsed folding positions: Resource '/hd/Scripts/Script.sql' does not exist.
+2026-10-15 16:21:40.652 - Connect with 'postgres (1)' (postgres-jdbc-1a13e6e6021-6f99a30a9d8a23d)
+2026-10-15 16:21:40.653 - Execution context opened (postgres (1); Main <postgres>; 4)
+2026-10-15 16:21:40.654 - Initiate connection to PostgreSQL database [postgres@localhost] for Main <postgres>
+2026-10-15 16:21:40.811 - Execution context closed (postgres (1), 4)
+2026-10-15 16:34:59.099 - Service 'org.jkiss.dbeaver.runtime.IEnvironmentPathMapper' not found
+2026-10-15 16:37:34.738 - Execution context closed (postgres, 2)
+2026-10-15 16:37:34.927 - Dispose navigator model
+2026-10-15 16:37:34.950 - DBeaver is stopping
+2026-10-15 16:37:34.952 - Stop instance server
+2026-10-15 16:37:34.953 - Instance server has been stopped
+2026-10-15 16:37:34.998 - DBeaver shutdown completed
+2026-10-15 16:37:35.035 - Shutdown desktop platform...
+2026-10-15 16:37:35.048 - Execution context closed (postgres, 0)
+2026-10-15 16:37:35.060 - Execution context closed (postgres, 1)
+2026-10-15 16:37:35.060 - Disconnected (postgres-jdbc-1a13d2eef18-1c6e9b5ed127511d)
+2026-10-15 16:37:35.419 - Platform shutdown completed (383ms)
+2026-10-15 16:37:35.428 - Send collected statistics
+2026-10-15 16:37:35.429 - Metadata is read before workspace initialization
+2026-10-15 16:37:35.434 - Open [https://stats.dbeaver.com/send-statistics?session=76a9a813-4580-4bfa-b5dc-2de6239a4eda&time=1792048495]
+2026-10-15 16:37:36.071 - Statistics sent (OK)
