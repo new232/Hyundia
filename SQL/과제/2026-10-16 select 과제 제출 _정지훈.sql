@@ -52,8 +52,7 @@ WHERE errorid IN ('error1','error3');
 
 SELECT DISTINCT model
 FROM pdm.pdm_machines pm 
-ORDER BY model
-
+ORDER BY model;
 -- Q6. pdm.pdm_telemetry 테이블에서 설비 1번의 2015년 1월 측정값 건수를
 --     아래 두 방식으로 각각 조회하시오.
 --     (1) BETWEEN '2015-01-01' AND '2015-01-31'
@@ -67,7 +66,7 @@ WHERE machineid =1 AND datetime BETWEEN '2015-01-01' AND '2015-01-31'
 
 SELECT count(*)
 FROM pdm.pdm_telemetry
-WHERE machineid =1 AND datetime >= '2015-01-01' AND datetime< '2015-02-01'
+WHERE machineid =1 AND datetime >= '2015-01-01' AND datetime< '2015-02-01';
 
 -- Q7. customers 테이블에서 담당자 직함(contact_title)이 'Sales'로 시작하는 고객의
 --     회사명(company_name)과 직함(contact_title)을 조회하시오.
@@ -76,7 +75,7 @@ WHERE machineid =1 AND datetime >= '2015-01-01' AND datetime< '2015-02-01'
 SELECT company_name, contact_title 
 FROM customers
 WHERE contact_title LIKE 'Sales%'
-ORDER BY contact_title , company_name
+ORDER BY contact_title , company_name;
 -- Q8. products 테이블에서 단가가 20 이하이면서
 --     카테고리(category_id)가 1 또는 2인 제품의
 --     제품 번호, 제품명, 카테고리, 단가를 조회하시오.
@@ -85,13 +84,13 @@ ORDER BY contact_title , company_name
 SELECT product_id ,product_name ,category_id ,unit_price 
 FROM products
 WHERE unit_price <=20 AND category_id IN (1,2)
-ORDER BY unit_price ASC, product_id
+ORDER BY unit_price ASC, product_id;
 
 -- Q9. customers 테이블에서 팩스 번호(fax)가 없는(NULL) 고객 수를 조회하시오.
 
 SELECT count(*)
 FROM customers
-WHERE fax IS null
+WHERE fax IS NULL;
 
 -- Q10. orders 테이블에서 1998년 주문을 주문일자, 주문번호 순으로 정렬해
 --      20건씩 볼 때 2페이지(21~40번째)를 조회하시오.
@@ -103,7 +102,7 @@ FROM orders
 WHERE TO_Char(order_date,'YYYY')= '1998'
 ORDER BY order_date , order_id 
 LIMIT 20
-OFFSET 20
+OFFSET 20;
 
 -- Q11. customers 테이블에서 region이 NULL이면 '미지정'으로 표시하여
 --      회사명, 원본 region, 표시용 region, 국가를 조회하시오.
@@ -112,7 +111,7 @@ OFFSET 20
 SELECT company_name, region, coalesce(region,'미지정') AS "표기용 region" ,country 
 FROM customers
 ORDER BY country,company_name 
-LIMIT 20
+LIMIT 20;
 
 -- Q12. products 테이블에서 재고금액(unit_price * units_in_stock)이
 --      1000 이상인 제품을 조회하시오.
@@ -122,4 +121,4 @@ LIMIT 20
 SELECT product_name ,unit_price ,units_in_stock , (unit_price * units_in_stock) AS 재고금액
 FROM products
 WHERE (unit_price * units_in_stock)>= 1000
-ORDER BY (unit_price * units_in_stock) DESC , product_id 
+ORDER BY (unit_price * units_in_stock) DESC , product_id ;

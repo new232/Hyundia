@@ -16,7 +16,7 @@ product_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 product_code varchar(30) NOT NULL UNIQUE,
 product_name varchar(100) NOT NULL,
 price numeric(12,2) check(price >=0),
-status varchar(20) DEFAULT '판매중'
+status varchar(20) DEFAULT '판매중';
 
 );
 
@@ -30,7 +30,7 @@ CREATE TABLE public.edu_equipment(
 equipment_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 equipment_code varchar(50) NOT NULL UNIQUE ,
 equipment_name varchar(40) NOT NULL,
-status VARCHAR(20) NOT NULL CHECK (status IN ('정상', '점검', '정지'))
+status VARCHAR(20) NOT NULL CHECK (status IN ('정상', '점검', '정지'));
 );
 
 -- Q3. public.edu_equipment_log 테이블을 만들고
@@ -40,7 +40,7 @@ CREATE TABLE public.edu_equipment_log(
 equipment_id integer,
 
 	FOREIGN key(equipment_id)
-		REFERENCES public.edu_equipment(equipment_id)
+		REFERENCES public.edu_equipment(equipment_id);
 );
 
 -- Q4. edu_product에 category 컬럼을 추가하시오.
