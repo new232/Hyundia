@@ -68,7 +68,7 @@ LEFT JOIN orders o
 ON o.ship_via = s2.shipper_id 
 WHERE o.order_id IS null
 
-
+SELECT date_trunc('second',current_date + TIMe'18:00:00' - now())
 
 -- Q5. 모든 직원을 유지하면서 1998년 5월 주문만 연결하여
 --     직원별 1998년 5월 주문 건수를 조회하시오. 주문이 없으면 0으로 나와야 한다.
@@ -87,7 +87,10 @@ ORDER BY e.employee_id ;
 --     같은 쌍이 두 번 나오거나 자기 자신과 짝지어지지 않게 하시오.
 --     상사 번호, 직원 A 번호, 직원 B 번호 순으로 정렬하시오.
 
-SELECT e1.reports_to AS "상사 번호"  , e1.employee_id  AS "직원 A", e2.employee_id AS "직원 B" 
+SELECT 
+	e1.reports_to AS "상사 번호"  ,
+	e1.employee_id  AS "직원 A",
+	e2.employee_id AS "직원 B" 
 FROM employees e1
 JOIN employees e2
 ON e1.reports_to  = e2.reports_to  AND e1.employee_id < e2.employee_id  
