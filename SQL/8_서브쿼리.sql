@@ -511,8 +511,8 @@ HAVING SUM(od.quantity * od.unit_price) > (
     SELECT AVG(t.td)
     FROM (
         SELECT SUM(od2.quantity * od2.unit_price) AS td
-        FROM order_details od2
-        GROUP BY od2.order_id
+       FROM order_details od2
+       GROUP BY od2.order_id 
     ) AS t
 )
 ORDER BY 주문금액 DESC, o.order_id ASC;
@@ -709,8 +709,7 @@ WHERE products.product_id = order_details.product_id
 
 
 -- Q10. mfg.tb_ai4i 테이블에서 전체 관측값의 평균 공구 마모 시간보다
---      공구 마모 시간이 큰 관측값을 서브쿼리로 조회하시오.
---      udi, product_type, tool_wear_min을 출력하고,
+r--      udi, product_type, tool_wear_min을 출력하고,
 --      공구 마모 시간 내림차순, udi 오름차순으로 정렬하여 10건만 조회하시오.
 -- 정답:
 

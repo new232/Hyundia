@@ -1,1 +1,1 @@
-{"resources":{"Scripts/Script.sql":{"default-projectId":"TEST","default-datasource":"postgres-jdbc-1a13ea5b205-25df701ff8f4f99b","default-catalog":"postgres","default-schema":"public"}}}
+{"resources":{"Scripts/0231023정지훈CTE확인문제.sql":{"default-projectId":"General","default-datasource":"postgres-jdbc-1a13d2eef18-1c6e9b5ed127511d","default-catalog":"hd","default-schema":"public"},"Scripts/Script.sql":{"default-schema":"public","default-projectId":"TEST","default-datasource":"postgres-jdbc-1a13ea5b205-25df701ff8f4f99b","default-catalog":"postgres"}}}
