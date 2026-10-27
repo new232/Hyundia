@@ -5,7 +5,6 @@
   <document-format-change-manifest>
     <AccessibleZoneTabOrder />
     <AnimationOnByDefault />
-    <AutoCreateAndUpdateDSDPhoneLayouts />
     <IntuitiveSorting />
     <IntuitiveSorting_SP2 />
     <MapboxVectorStylesAndLayers />
@@ -1023,6 +1022,7 @@
       <column-instance column='[Tool wear (min)]' derivation='Sum' name='[sum:Tool wear (min):qk]' pivot='key' type='quantitative' />
       <column-instance column='[Torque (Nm)]' derivation='Sum' name='[sum:Torque (Nm):qk]' pivot='key' type='quantitative' />
       <column-instance column='[UDI]' derivation='Sum' name='[sum:UDI:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Machine failure]' derivation='VarP' name='[vrp:Machine failure:qk]' pivot='key' type='quantitative' />
       <extract count='-1' enabled='true' object-id='' units='records' user-specific='false'>
         <connection access_mode='readonly' author-locale='ko_KR' class='hyper' dbname='Data/TableauTemp/#TableauTemp_1dg4fwn1ohpjcw1gcms271xy5i8i.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='10/26/2026 05:18:54 AM' username='tableau_internal_user'>
           <relation name='Extract' table='[Extract].[Extract]' type='table' />
@@ -1358,6 +1358,9 @@
             <map to='#ffbe7d'>
               <bucket>&quot;[federated.09f59qt1ocwqs40znbeil1q6m636].[sum:Machine failure:qk]&quot;</bucket>
             </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;[federated.09f59qt1ocwqs40znbeil1q6m636].[vrp:Machine failure:qk]&quot;</bucket>
+            </map>
           </encoding>
         </style-rule>
       </style>
@@ -1398,6 +1401,16 @@
   <mapsources>
     <mapsource name='Tableau' />
   </mapsources>
+  <actions>
+    <action caption='필터 1(생성됨)' name='[Action1_81D1B7FB48A5425D94D37502FFB4B896]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='대시보드 1' type='sheet' worksheet='실습 4-2' />
+      <command command='tsc:tsl-filter'>
+        <param name='special-fields' value='all' />
+        <param name='target' value='대시보드 1' />
+      </command>
+    </action>
+  </actions>
   <worksheets>
     <worksheet name='AI1'>
       <table>
@@ -1430,7 +1443,7 @@
               <color column='[federated.09f59qt1ocwqs40znbeil1q6m636].[:Measure Names]' />
             </encodings>
           </pane>
-          <pane id='1' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.09f59qt1ocwqs40znbeil1q6m636].[sum:TWF:qk]'>
+          <pane id='1' selection-relaxation-option='selection-relaxation-allow' x-axis-name='[federated.09f59qt1ocwqs40znbeil1q6m636].[sum:TWF:qk]'>
             <view>
               <breakdown value='auto' />
             </view>
@@ -1439,7 +1452,7 @@
               <color column='[federated.09f59qt1ocwqs40znbeil1q6m636].[:Measure Names]' />
             </encodings>
           </pane>
-          <pane id='2' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.09f59qt1ocwqs40znbeil1q6m636].[sum:RNF:qk]'>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow' x-axis-name='[federated.09f59qt1ocwqs40znbeil1q6m636].[sum:RNF:qk]'>
             <view>
               <breakdown value='auto' />
             </view>
@@ -1448,7 +1461,7 @@
               <color column='[federated.09f59qt1ocwqs40znbeil1q6m636].[:Measure Names]' />
             </encodings>
           </pane>
-          <pane id='3' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.09f59qt1ocwqs40znbeil1q6m636].[sum:OSF:qk]'>
+          <pane id='3' selection-relaxation-option='selection-relaxation-allow' x-axis-name='[federated.09f59qt1ocwqs40znbeil1q6m636].[sum:OSF:qk]'>
             <view>
               <breakdown value='auto' />
             </view>
@@ -1457,7 +1470,7 @@
               <color column='[federated.09f59qt1ocwqs40znbeil1q6m636].[:Measure Names]' />
             </encodings>
           </pane>
-          <pane id='4' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.09f59qt1ocwqs40znbeil1q6m636].[sum:HDF:qk]'>
+          <pane id='4' selection-relaxation-option='selection-relaxation-allow' x-axis-name='[federated.09f59qt1ocwqs40znbeil1q6m636].[sum:HDF:qk]'>
             <view>
               <breakdown value='auto' />
             </view>
@@ -1466,7 +1479,7 @@
               <color column='[federated.09f59qt1ocwqs40znbeil1q6m636].[:Measure Names]' />
             </encodings>
           </pane>
-          <pane id='5' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.09f59qt1ocwqs40znbeil1q6m636].[sum:PWF:qk]'>
+          <pane id='5' selection-relaxation-option='selection-relaxation-allow' x-axis-name='[federated.09f59qt1ocwqs40znbeil1q6m636].[sum:PWF:qk]'>
             <view>
               <breakdown value='auto' />
             </view>
@@ -1476,8 +1489,8 @@
             </encodings>
           </pane>
         </panes>
-        <rows>([federated.09f59qt1ocwqs40znbeil1q6m636].[sum:TWF:qk] + ([federated.09f59qt1ocwqs40znbeil1q6m636].[sum:RNF:qk] + ([federated.09f59qt1ocwqs40znbeil1q6m636].[sum:OSF:qk] + ([federated.09f59qt1ocwqs40znbeil1q6m636].[sum:HDF:qk] + [federated.09f59qt1ocwqs40znbeil1q6m636].[sum:PWF:qk]))))</rows>
-        <cols>[federated.09f59qt1ocwqs40znbeil1q6m636].[:Measure Names]</cols>
+        <rows>[federated.09f59qt1ocwqs40znbeil1q6m636].[:Measure Names]</rows>
+        <cols>([federated.09f59qt1ocwqs40znbeil1q6m636].[sum:TWF:qk] + ([federated.09f59qt1ocwqs40znbeil1q6m636].[sum:RNF:qk] + ([federated.09f59qt1ocwqs40znbeil1q6m636].[sum:OSF:qk] + ([federated.09f59qt1ocwqs40znbeil1q6m636].[sum:HDF:qk] + [federated.09f59qt1ocwqs40znbeil1q6m636].[sum:PWF:qk]))))</cols>
       </table>
       <simple-id uuid='{774F0D5C-9CB4-448F-B1D7-555AC4AE202D}' />
     </worksheet>
@@ -1488,15 +1501,14 @@
             <datasource caption='ai4i2020' name='federated.09f59qt1ocwqs40znbeil1q6m636' />
           </datasources>
           <datasource-dependencies datasource='federated.09f59qt1ocwqs40znbeil1q6m636'>
-            <column caption='SUM([Machine failure]) / COUNT([UDI])' datatype='real' name='[Calculation_0855205007417350]' role='measure' type='quantitative' user:unnamed='AI2'>
-              <calculation class='tableau' formula='SUM([Machine failure]) / COUNT([UDI])' />
-            </column>
             <column datatype='integer' name='[Machine failure]' role='measure' type='quantitative' />
             <column datatype='string' name='[Type]' role='dimension' type='nominal' />
-            <column datatype='integer' name='[UDI]' role='measure' type='quantitative' />
             <column-instance column='[Type]' derivation='None' name='[none:Type:nk]' pivot='key' type='nominal' />
-            <column-instance column='[Calculation_0855205007417350]' derivation='User' name='[usr:Calculation_0855205007417350:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Machine failure]' derivation='Sum' name='[sum:Machine failure:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.09f59qt1ocwqs40znbeil1q6m636].[none:Type:nk]' direction='ASC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.09f59qt1ocwqs40znbeil1q6m636].[sum:Machine failure:qk]' shelf='rows' />
+          </shelf-sorts>
           <aggregation value='true' />
         </view>
         <style />
@@ -1511,8 +1523,8 @@
             </encodings>
           </pane>
         </panes>
-        <rows>[federated.09f59qt1ocwqs40znbeil1q6m636].[usr:Calculation_0855205007417350:qk]</rows>
-        <cols>[federated.09f59qt1ocwqs40znbeil1q6m636].[none:Type:nk]</cols>
+        <rows>[federated.09f59qt1ocwqs40znbeil1q6m636].[none:Type:nk]</rows>
+        <cols>[federated.09f59qt1ocwqs40znbeil1q6m636].[sum:Machine failure:qk]</cols>
       </table>
       <simple-id uuid='{299F1107-5008-44D6-BCDA-3B2F5F6F4DE3}' />
     </worksheet>
@@ -1557,7 +1569,11 @@
           </slices>
           <aggregation value='true' />
         </view>
-        <style />
+        <style>
+          <style-rule element='worksheet'>
+            <format attr='in-tooltip' field='[federated.09f59qt1ocwqs40znbeil1q6m636].[Multiple Values]' value='false' />
+          </style-rule>
+        </style>
         <panes>
           <pane selection-relaxation-option='selection-relaxation-allow'>
             <view>
@@ -1623,6 +1639,26 @@
         <cols>[federated.115hg9o16m6eg51ctm8om0cvhkdi].[sum:Profit:qk]</cols>
       </table>
       <simple-id uuid='{DC08B963-8566-401A-9C50-22DFD7C5806E}' />
+    </worksheet>
+    <worksheet name='시트 11'>
+      <table>
+        <view>
+          <datasources />
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{844B64B4-A965-43A4-822B-696FC63CDBB3}' />
     </worksheet>
     <worksheet name='실습 4-1'>
       <table>
@@ -1999,12 +2035,12 @@
   <dashboards>
     <dashboard enable-sort-zone-taborder='true' name='대시보드 1'>
       <style />
-      <size maxheight='860' maxwidth='650' minheight='560' minwidth='420' />
+      <size minheight='560' minwidth='420' sizing-mode='range' />
       <zones>
-        <zone h='100000' id='6' type-v2='layout-basic' w='100000' x='0' y='0'>
-          <zone h='98122' id='9' param='horz' type-v2='layout-flow' w='97538' x='1231' y='939'>
-            <zone h='98122' id='7' type-v2='layout-basic' w='72923' x='1231' y='939'>
-              <zone h='49061' id='5' name='AI1' w='72923' x='1231' y='939'>
+        <zone h='100000' id='2' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='97992' id='6' param='horz' type-v2='layout-flow' w='99018' x='491' y='1004'>
+            <zone h='97992' id='4' type-v2='layout-basic' w='89190' x='491' y='1004'>
+              <zone h='48996' id='1' name='실습 4-1' w='44595' x='491' y='1004'>
                 <zone-style>
                   <format attr='border-color' value='#444444' />
                   <format attr='border-style' value='none' />
@@ -2012,7 +2048,23 @@
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-              <zone h='49061' id='11' name='AI2' w='72923' x='1231' y='50000'>
+              <zone h='48996' id='3' name='실습 4-2' w='44595' x='491' y='50000'>
+                <zone-style>
+                  <format attr='border-color' value='#444444' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+              <zone h='48996' id='8' name='실습 4-3' w='44595' x='45086' y='1004'>
+                <zone-style>
+                  <format attr='border-color' value='#444444' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+              <zone h='48996' id='9' name='실습 4-4' w='44595' x='45086' y='50000'>
                 <zone-style>
                   <format attr='border-color' value='#444444' />
                   <format attr='border-style' value='none' />
@@ -2021,8 +2073,8 @@
                 </zone-style>
               </zone>
             </zone>
-            <zone fixed-size='160' h='98122' id='8' is-fixed='true' param='vert' type-v2='layout-flow' w='24615' x='74154' y='939'>
-              <zone h='15845' id='10' name='AI1' pane-specification-id='1' param='[federated.09f59qt1ocwqs40znbeil1q6m636].[:Measure Names]' type-v2='color' w='24615' x='74154' y='939'>
+            <zone fixed-size='160' h='97992' id='5' is-fixed='true' param='vert' type-v2='layout-flow' w='9828' x='89681' y='1004'>
+              <zone h='9160' id='7' name='실습 4-2' pane-specification-id='2' param='[federated.115hg9o16m6eg51ctm8om0cvhkdi].[sum:Profit:qk]' type-v2='color' w='9828' x='89681' y='1004'>
                 <zone-style>
                   <format attr='border-color' value='#444444' />
                   <format attr='border-style' value='none' />
@@ -2030,7 +2082,7 @@
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-              <zone h='10916' id='12' name='AI2' pane-specification-id='0' param='[federated.09f59qt1ocwqs40znbeil1q6m636].[none:Type:nk]' type-v2='color' w='24615' x='74154' y='16784'>
+              <zone h='14304' id='10' name='실습 4-4' pane-specification-id='1' param='[federated.115hg9o16m6eg51ctm8om0cvhkdi].[none:Ship Mode:nk]' type-v2='color' w='9828' x='89681' y='10164'>
                 <zone-style>
                   <format attr='border-color' value='#444444' />
                   <format attr='border-style' value='none' />
@@ -2048,59 +2100,6 @@
           </zone-style>
         </zone>
       </zones>
-      <devicelayouts>
-        <devicelayout auto-generated='true' name='Phone'>
-          <size maxheight='750' minheight='750' sizing-mode='vscroll' />
-          <zones>
-            <zone h='100000' id='16' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98122' id='15' param='vert' type-v2='layout-flow' w='97538' x='1231' y='939'>
-                <zone fixed-size='280' h='49061' id='5' is-fixed='true' name='AI1' w='72923' x='1231' y='939'>
-                  <zone-style>
-                    <format attr='border-color' value='#444444' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                  </zone-style>
-                </zone>
-                <zone h='15845' id='10' name='AI1' pane-specification-id='1' param='[federated.09f59qt1ocwqs40znbeil1q6m636].[:Measure Names]' type-v2='color' w='24615' x='74154' y='939'>
-                  <zone-style>
-                    <format attr='border-color' value='#444444' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                  </zone-style>
-                </zone>
-                <zone fixed-size='280' h='49061' id='11' is-fixed='true' name='AI2' w='72923' x='1231' y='50000'>
-                  <zone-style>
-                    <format attr='border-color' value='#444444' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                  </zone-style>
-                </zone>
-                <zone h='10916' id='12' name='AI2' pane-specification-id='0' param='[federated.09f59qt1ocwqs40znbeil1q6m636].[none:Type:nk]' type-v2='color' w='24615' x='74154' y='16784'>
-                  <zone-style>
-                    <format attr='border-color' value='#444444' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                  </zone-style>
-                </zone>
-              </zone>
-              <zone-style>
-                <format attr='border-color' value='#444444' />
-                <format attr='border-style' value='none' />
-                <format attr='border-width' value='0' />
-                <format attr='margin' value='8' />
-              </zone-style>
-            </zone>
-          </zones>
-        </devicelayout>
-      </devicelayouts>
       <simple-id uuid='{E4F13BD2-97A7-455D-93ED-A7BC35089B0E}' />
     </dashboard>
   </dashboards>
@@ -2334,7 +2333,7 @@
           <strip size='2147483647'>
             <card type='rows' />
           </strip>
-          <strip size='30'>
+          <strip size='29'>
             <card type='title' />
           </strip>
         </edge>
@@ -2380,13 +2379,47 @@
     </window>
     <window class='dashboard' name='대시보드 1'>
       <viewpoints>
-        <viewpoint name='AI1' />
-        <viewpoint name='AI2'>
+        <viewpoint name='실습 4-1'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='실습 4-2'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='실습 4-3'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='실습 4-4'>
           <zoom type='entire-view' />
         </viewpoint>
       </viewpoints>
-      <active id='5' />
+      <active id='9' />
+      <device-preview visible='true'>
+        <device name='iPhone 7 Plus, 8 Plus' type='Phone' />
+      </device-preview>
       <simple-id uuid='{2A5C3D78-DDD8-4C1D-800C-73B5AE733D3E}' />
+    </window>
+    <window class='worksheet' name='시트 11'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{868B8A97-A208-42C0-ACE6-272144C9D1F3}' />
     </window>
   </windows>
 </workbook>

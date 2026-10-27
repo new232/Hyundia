@@ -89,7 +89,7 @@ rank() OVER (ORDER BY unit_price desc)rank_val,
 DENSE_RANK() OVER (ORDER BY unit_price desc) dense_rank_val
 FROM products
 WHERE category_id = 1
-ORDER BY unit_price , product_id 
+ORDER BY unit_price DESC, product_id 
 
 --rank는 같은 수치 일때 같은 순위를 매기고 그만큼의 순위를 건너 뛰지만 dense_rank는 순위를 건너 뛰지 않고 연속적으로 나열한다
 
@@ -117,33 +117,3 @@ SELECT machineid , datetime, failure, count(*) OVER (ORDER BY datetime )
 FROM pdm.pdm_failures
 WHERE machineid = 1
 ORDER BY datetime;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-SELECT  DISTINCT customer_id , count(*) OVER (PARTITION BY customer_id)
-FROM orders
-ORDER BY customer_id 
-
-
-
-SELECT  customer_id , (SELECT count(*)FROM orders o2 WHERE o2.customer_id  = o.customer_id )
-FROM orders o
-GROUP BY customer_id 
-ORDER BY customer_id 
