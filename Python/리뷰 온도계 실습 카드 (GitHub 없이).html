@@ -1,0 +1,886 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>리뷰 온도계 실습 카드 (GitHub 없이)</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one narrow reading column; a sticky chip bar of the sessions; each step = heading + short note + copyable blocks */
+:root {
+  --paper: #f8f6ee;
+  --card: #ffffff;
+  --ink: #173a2c;
+  --ink-soft: #3d5248;
+  --muted: #5a6b62;
+  --line: #e2e6de;
+  --accent: #007a4d;
+  --mark: #fff3c4;
+  --mark-edge: #f2b705;
+  --code-bg: #173a2c;
+  --code-fg: #f8f6ee;
+  --code-dim: #b5ccbf;
+  --done-bg: #007a4d;
+  --done-fg: #ffffff;
+  --font-body: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'D2Coding', Consolas, 'Noto Sans KR', monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1f18; --card: #172b22; --ink: #e8f1ea; --ink-soft: #c3d5ca; --muted: #97ae9f;
+    --line: #2a4035; --accent: #4cd19a; --mark: #3a3210; --mark-edge: #f2b705;
+    --code-bg: #09140f; --code-fg: #e8f1ea; --code-dim: #93aa9c; --done-bg: #4cd19a; --done-fg: #09140f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1f18; --card: #172b22; --ink: #e8f1ea; --ink-soft: #c3d5ca; --muted: #97ae9f;
+  --line: #2a4035; --accent: #4cd19a; --mark: #3a3210; --mark-edge: #f2b705;
+  --code-bg: #09140f; --code-fg: #e8f1ea; --code-dim: #93aa9c; --done-bg: #4cd19a; --done-fg: #09140f;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.65;
+  word-break: keep-all; overflow-wrap: break-word;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+.wrap {
+  max-width: 760px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+  display: flex; flex-direction: column; gap: 28px;
+}
+header { display: flex; flex-direction: column; gap: 8px; }
+.eyebrow { font-size: 13px; font-weight: 700; letter-spacing: 0.06em; color: var(--accent); }
+h1 { font-size: clamp(26px, 5vw, 34px); font-weight: 800; line-height: 1.25; margin: 0; text-wrap: balance; }
+.lede { color: var(--ink-soft); margin: 0; }
+nav.steps {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--paper); padding-block: 10px;
+  display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+  border-bottom: 1px solid var(--line);
+}
+nav.steps::-webkit-scrollbar { display: none; }
+nav.steps a {
+  flex: none; text-decoration: none; color: var(--ink); font-size: 14px; font-weight: 700;
+  padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--card);
+}
+nav.steps a:focus-visible, button:focus-visible { outline: 3px solid var(--mark-edge); outline-offset: 2px; }
+section.step { display: flex; flex-direction: column; gap: 12px; scroll-margin-top: 72px; }
+.step-head { display: flex; align-items: baseline; gap: 10px; }
+.num { font-size: 22px; font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; }
+h2 { font-size: 21px; font-weight: 800; margin: 0; text-wrap: balance; }
+.where { font-size: 13px; font-weight: 700; color: var(--muted); }
+p { margin: 0; }
+.note { color: var(--ink-soft); }
+.block { background: var(--code-bg); border-radius: 12px; overflow: hidden; }
+.block-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 12px 0 16px; }
+.block-label { font-family: var(--font-mono); font-size: 12px; color: var(--code-dim); }
+.copy {
+  font-family: var(--font-body); font-size: 13px; font-weight: 700; cursor: pointer;
+  color: var(--code-bg); background: var(--mark-edge); border: 0; border-radius: 8px; padding: 5px 12px;
+}
+.copy[data-done] { background: var(--done-bg); color: var(--done-fg); }
+pre {
+  margin: 0; padding: 10px 16px 14px; overflow-x: auto;
+  font-family: var(--font-mono); font-size: 14px; line-height: 1.6; color: var(--code-fg);
+  white-space: pre-wrap; word-break: break-word;
+}
+pre.agents { max-height: 340px; overflow-y: auto; white-space: pre-wrap; }
+.check { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; }
+.check strong { color: var(--accent); }
+.tip { background: var(--mark); border-left: 6px solid var(--mark-edge); border-radius: 8px; padding: 10px 14px; font-weight: 500; }
+code { font-family: var(--font-mono); font-size: 0.92em; color: var(--accent); overflow-wrap: anywhere; }
+.trouble { width: 100%; border-collapse: collapse; font-size: 15px; }
+.trouble th, .trouble td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.trouble th { color: var(--muted); font-size: 13px; font-weight: 700; }
+.trouble td:first-child { font-weight: 700; width: 38%; }
+.table-scroll { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 16px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+h2.session { font-size: 24px; font-weight: 800; margin: 0; padding-top: 8px; border-top: 3px solid var(--mark-edge); text-wrap: balance; }
+.session-head { display: flex; flex-direction: column; gap: 6px; scroll-margin-top: 72px; }
+.group { display: flex; flex-direction: column; gap: 28px; }
+.check { background: var(--mark); border: 1px solid var(--mark-edge); }
+ul.plain { margin: 0; padding-left: 20px; }
+.tip { background: var(--card); border-left: 6px solid var(--mark-edge); }
+.step-head { flex-wrap: wrap; }
+.envtabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.envtab {
+  font-family: var(--font-body); font-size: 14px; font-weight: 700; cursor: pointer;
+  color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px;
+}
+.envtab[aria-selected="true"] { background: var(--done-bg); color: var(--done-fg); border-color: var(--done-bg); }
+.tabpanel { display: flex; flex-direction: column; gap: 12px; }
+.tabpanel[hidden] { display: none; }
+.tabpanel:focus-visible { outline: 3px solid var(--mark-edge); outline-offset: 4px; border-radius: 8px; }
+ol.plain { margin: 6px 0 0; padding-left: 22px; }
+details.answer { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; min-width: 0; }
+details.answer > summary { cursor: pointer; font-weight: 700; color: var(--accent); }
+details.answer > summary:focus-visible { outline: 3px solid var(--mark-edge); outline-offset: 2px; border-radius: 6px; }
+details.answer[open] > summary { margin-bottom: 12px; }
+.answer-body { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.note a, .check a, .trouble a, .tip a { color: var(--accent); font-weight: 700; }
+.num { white-space: nowrap; }
+</style>
+
+<div class="wrap">
+<header>
+  <p class="eyebrow">현대경제연구원 AI 데이터 분석 과정 · 실습 카드</p>
+  <h1>AI와 함께 코딩하며 SDD·TDD 시작하기 (GitHub 없이)</h1>
+  <p class="lede">위에서부터 복사해 씁니다. 내 컴퓨터(Windows·macOS)에 맞는 블록만 씁니다. &lt; &gt;는 빼고 내 값을 넣습니다. “공통 절차 ✓”는 세션 1 ⑪ 앞의 공통 절차 상자입니다.</p>
+</header>
+
+<nav class="steps" aria-label="바로가기"><a href="#s1">세션 1</a><a href="#s2">세션 2</a><a href="#s3">세션 3</a><a href="#s4">세션 4</a><a href="#opt">선택 과제</a><a href="#stuck">막혔을 때</a><a href="#safe">안전</a></nav>
+
+<div class="group" id="s1">
+<div class="session-head"><h2 class="session">세션 1 · AI와 코딩하는 법</h2>
+<p class="note">환경을 만들고 AGENTS.md 빈칸 4곳을 채웁니다. 터미널은 review-thermo 폴더에서 엽니다.</p></div>
+<section class="step">
+  <div class="step-head"><span class="num">①</span><h2>설치 확인</h2><span class="where">터미널</span></div>
+  <p class="note">Python, git, VS Code, agy 버전을 확인합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">Windows</span><button class="copy" type="button">전체 복사</button></div>
+<pre>python --version
+git --version
+code --version
+agy --version</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">macOS</span><button class="copy" type="button">전체 복사</button></div>
+<pre>python3 --version
+git --version
+code --version
+agy --version</pre></div>
+  <div class="check"><strong>성공 기준</strong> · 버전이 나오고 Python 3.11 이상. agy가 없으면 ②.</div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">②</span><h2>agy 설치</h2><span class="where">터미널</span></div>
+  <p class="note">antigravity.google → Download → Antigravity CLI의 명령입니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">Windows</span><button class="copy" type="button">복사</button></div>
+<pre>irm https://antigravity.google/cli/install.ps1 | iex</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">macOS</span><button class="copy" type="button">복사</button></div>
+<pre>curl -fsSL https://antigravity.google/cli/install.sh | bash</pre></div>
+  <p class="note">새 터미널에서 확인합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">터미널</span><button class="copy" type="button">복사</button></div>
+<pre>agy --version</pre></div>
+  <div class="check"><strong>성공 기준</strong> · 버전 숫자가 나옵니다.</div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">②-2</span><h2>Node.js 설치</h2><span class="where">터미널</span></div>
+  <p class="note">MCP 서버를 켜는 데 씁니다. 설치가 끝나면 터미널과 VS Code를 모두 닫았다가 다시 엽니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">Windows</span><button class="copy" type="button">복사</button></div>
+<pre>winget install OpenJS.NodeJS.LTS</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">macOS</span><button class="copy" type="button">복사</button></div>
+<pre>brew install node</pre></div>
+  <p class="note">Homebrew가 없으면 <code>nodejs.org</code>의 LTS 설치 파일을 씁니다. 다시 연 터미널에서 확인합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">터미널 · 확인</span><button class="copy" type="button">복사</button></div>
+<pre>node -v
+npx -v</pre></div>
+  <div class="check"><strong>성공 기준</strong> · 두 줄 모두 버전 숫자가 나옵니다.</div>
+  <p class="tip">PowerShell의 <code>npx</code> 실행 정책 오류는 ④의 <code>Set-ExecutionPolicy</code> 명령을 씁니다.</p>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">③</span><h2>zip 풀고 폴더 열기</h2><span class="where">파일 탐색기 또는 Finder · VS Code</span></div>
+  <p class="note"><code>ai-review-thermo.zip</code>을 풉니다. <code>review-thermo</code>와 <code>checkpoints</code>가 나란히 생깁니다. <code>checkpoints</code>는 단계별 완성본(비교·참고용)입니다. 실습은 <code>review-thermo</code>에서만 합니다.</p>
+  <p class="note">VS Code <strong>파일 → 폴더 열기</strong>(Mac은 <strong>파일 → 열기</strong>)로 <code>review-thermo</code>를 열고 Yes, I trust. 터미널은 <strong>터미널 → 새 터미널</strong>.</p>
+  <p class="note">Copilot은 VS Code에서 GitHub 로그인이 필요합니다.</p>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">④</span><h2>가상환경과 패키지</h2><span class="where">VS Code 아래 터미널</span></div>
+  <p class="note">맞는 블록만 실행합니다. <code>(.venv)</code>가 보이면 켜진 상태입니다.</p>
+  <p class="note">하나만 고릅니다. 처음이면 venv.</p>
+  <div class="envtabs" role="tablist" aria-label="환경 만드는 방법">
+    <button type="button" class="envtab" role="tab" id="tab-venv" aria-controls="panel-venv" aria-selected="true" tabindex="0">venv (기본)</button>
+    <button type="button" class="envtab" role="tab" id="tab-uv" aria-controls="panel-uv" aria-selected="false" tabindex="-1">uv</button>
+    <button type="button" class="envtab" role="tab" id="tab-poetry" aria-controls="panel-poetry" aria-selected="false" tabindex="-1">Poetry</button>
+  </div>
+  <div class="tabpanel" role="tabpanel" id="panel-venv" aria-labelledby="tab-venv" tabindex="0">
+  <div class="block"><div class="block-top"><span class="block-label">Windows</span><button class="copy" type="button">복사</button></div>
+<pre>python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">Windows · 막힐 때만</span><button class="copy" type="button">복사</button></div>
+<pre>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">macOS</span><button class="copy" type="button">복사</button></div>
+<pre>python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt</pre></div>
+  <p class="note">확인이 나오면 <code>Y</code>. Store가 열리면 <code>python</code> 대신 <code>py</code>.</p>
+  </div>
+  <div class="tabpanel" role="tabpanel" id="panel-uv" aria-labelledby="tab-uv" tabindex="0" hidden>
+  <div class="block"><div class="block-top"><span class="block-label">Windows · uv 설치</span><button class="copy" type="button">복사</button></div>
+<pre>powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">macOS · uv 설치</span><button class="copy" type="button">복사</button></div>
+<pre>curl -LsSf https://astral.sh/uv/install.sh | sh</pre></div>
+  <p class="note">새 터미널을 엽니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">터미널 · 설치</span><button class="copy" type="button">복사</button></div>
+<pre>uv sync</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">터미널 · 확인</span><button class="copy" type="button">복사</button></div>
+<pre>uv run python --version</pre></div>
+  <p class="note">이후 python·pytest·uvicorn 앞에 <code>uv run</code>(Poetry는 <code>poetry run</code>)을 붙입니다.</p>
+  </div>
+  <div class="tabpanel" role="tabpanel" id="panel-poetry" aria-labelledby="tab-poetry" tabindex="0" hidden>
+  <div class="block"><div class="block-top"><span class="block-label">Windows · Poetry 설치</span><button class="copy" type="button">복사</button></div>
+<pre>(Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">macOS · Poetry 설치</span><button class="copy" type="button">복사</button></div>
+<pre>curl -sSL https://install.python-poetry.org | python3 -</pre></div>
+  <p class="note">새 터미널을 엽니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">터미널 · 설치</span><button class="copy" type="button">복사</button></div>
+<pre>poetry install</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">터미널 · 확인</span><button class="copy" type="button">복사</button></div>
+<pre>poetry run python --version</pre></div>
+  <p class="note">이후 python·pytest·uvicorn 앞에 <code>uv run</code>(Poetry는 <code>poetry run</code>)을 붙입니다.</p>
+  </div>
+  <div class="check"><strong>성공 기준</strong> · 설치 성공. venv는 줄 앞에 <code>(.venv)</code>.</div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">⑤</span><h2>서버 켜고 화면 열기</h2><span class="where">터미널</span></div>
+  <div class="block"><div class="block-top"><span class="block-label">터미널</span><button class="copy" type="button">복사</button></div>
+<pre>uvicorn app.main:app --reload</pre></div>
+  <p class="note">브라우저에서 <code>http://localhost:8000</code>. 끌 때는 <code>Ctrl+C</code>.</p>
+  <div class="check"><strong>성공 기준</strong> · 분석을 누르면 “아직 구현되지 않았어요 (501)”. 정상입니다.</div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">⑥</span><h2>agy 처음 켜기</h2><span class="where">새 터미널 (review-thermo 폴더)</span></div>
+  <div class="block"><div class="block-top"><span class="block-label">터미널</span><button class="copy" type="button">복사</button></div>
+<pre>agy</pre></div>
+  <p class="note">Google 로그인 후 한국어로 부탁합니다. 비밀번호는 로그인 화면에만 입력합니다. <code>/</code>는 명령 메뉴입니다.</p>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">⑦</span><h2>같은 코드, 다른 부탁</h2><span class="where">Copilot 채팅 (Ask)</span></div>
+  <p class="note"><code>warmup/orders.py</code>를 열고 코드를 선택합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">Copilot 채팅</span><button class="copy" type="button">복사</button></div>
+<pre>이 코드 설명해 줘</pre></div>
+  <p class="note">역할·근거·형식·모를 때를 넣어 다시 보내고 비교합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">Copilot 채팅</span><button class="copy" type="button">복사</button></div>
+<pre>당신은 파이썬 입문자를 가르치는 선생님입니다. warmup/orders.py 만 근거로, 함수마다 3줄 이내로 설명해 주세요. 확실하지 않으면 ‘확인 필요’라고 표시해 주세요.</pre></div>
+  <p class="note">원하는 것·방법·하지 말 것·완료 기준으로 버그 수정 부탁을 써서 짝과 바꿔 읽습니다. 보내지 않습니다.</p>
+  <div class="check"><strong>성공 기준</strong> · 두 답의 길이와 정확도가 다릅니다.</div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">⑧</span><h2>warmup 버그 찾기</h2><span class="where">Copilot 채팅 또는 agy</span></div>
+  <p class="note"><code>warmup/orders.py</code>에 버그 3개. 두 부탁을 차례로 보내 비교합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 설명만</span><button class="copy" type="button">복사</button></div>
+<pre>고치지 말고 문제와 고칠 방법만 알려 줘</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 고치게 하기</span><button class="copy" type="button">복사</button></div>
+<pre>고쳐 줘</pre></div>
+  <p class="note">바뀐 파일을 확인합니다. Copilot은 소스 제어 창.</p>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력 · 바뀐 내용</span><button class="copy" type="button">복사</button></div>
+<pre>/diff</pre></div>
+  <p class="note">찾은 버그 수와 바뀐 줄을 확인합니다.</p>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">⑨</span><h2>오류를 물을 때 쓰는 세 칸</h2><span class="where">Copilot 채팅</span></div>
+  <p class="note">재현 조건·기대 동작·실제 동작과 에러 전문을 씁니다. 예시:</p>
+  <div class="block"><div class="block-top"><span class="block-label">Copilot 채팅 · 예시</span><button class="copy" type="button">전체 복사</button></div>
+<pre>[재현 조건] 분석 버튼을 눌렀을 때
+[기대 동작] 리뷰 온도가 보여야 합니다
+[실제 동작] 브라우저에 “아직 구현되지 않았어요 (501)”가 뜹니다
+먼저 원인을 설명하고, 바꿀 코드를 보여 주세요.</pre></div>
+  <div class="check"><strong>핵심</strong> · “먼저 설명해 줘”를 붙이면 AI의 오류를 알아챕니다.</div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">⑩</span><h2>AGENTS.md 빈칸 4곳 채우기</h2><span class="where">VS Code에서 AGENTS.md 열기</span></div>
+  <p class="note">주석 <code>빈칸:</code> 4곳을 채우고 주석 표시를 지웁니다.</p>
+  <p class="note">① 한 줄 설명 · 예: 리뷰 감정 분석 서비스<br>② 서버 실행 · 아래 블록<br>③ 하지 말 것 · 예: 새 패키지 설치<br>④ 끝날 때 알릴 것 · 예: 테스트 결과</p>
+  <div class="block"><div class="block-top"><span class="block-label">파일 · 빈칸 ②</span><button class="copy" type="button">복사</button></div>
+<pre>uvicorn app.main:app --reload</pre></div>
+  <p class="note">AGENTS.md에는 이미 “끝나면 테스트 결과·바뀐 파일·커밋 메시지 제안을 보고하고, 내가 ‘승인’해야 커밋한다”는 규칙이 들어 있습니다.</p>
+  <p class="note">새 채팅(+) 첫 줄에 AGENTS.md를 읽게 합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력</span><button class="copy" type="button">복사</button></div>
+<pre>먼저 AGENTS.md를 읽어. 이 프로젝트의 금지사항을 말해 줘.</pre></div>
+  <div class="check"><strong>성공 기준</strong> · 금지사항이 내가 쓴 것과 같습니다.</div>
+</section>
+<section class="step" id="common">
+  <div class="step-head"><h2>공통 절차 · 작업 하나를 끝낼 때</h2><span class="where">바로 아래 ⑪에서 처음 씁니다</span></div>
+  <p class="note">작업이 끝날 때마다 세 가지를 합니다.</p>
+  <p class="note"><strong>1. 테스트</strong> · uv·Poetry는 앞에 <code>uv run</code>·<code>poetry run</code>을 붙입니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">터미널</span><button class="copy" type="button">복사</button></div>
+<pre>python -m pytest -v</pre></div>
+  <p class="note"><strong>2. 바뀐 파일 확인</strong> · Copilot은 소스 제어 창(<code>Ctrl+Shift+G</code>, Mac은 <code>Cmd+Shift+G</code>). 바뀌면 안 되는 파일(tests/, SPEC 파일, static/)이 보이면 AI에게 “마지막 커밋 상태로 되돌려 줘”라고 부탁합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력 · 바뀐 내용</span><button class="copy" type="button">복사</button></div>
+<pre>/diff</pre></div>
+  <p class="note"><strong>3. 커밋</strong> · AGENTS.md 규칙대로 AI가 보고 끝에 커밋 메시지를 제안합니다. 테스트 결과·바뀐 파일·메시지를 읽고 맞으면 “승인”이라고만 씁니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력</span><button class="copy" type="button">복사</button></div>
+<pre>승인</pre></div>
+  <p class="note">AI 보고에 커밋 메시지가 없을 때만 아래를 씁니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 메시지가 없을 때</span><button class="copy" type="button">복사</button></div>
+<pre>바뀐 내용을 요약하고 커밋 메시지 한 줄을 제안해 줘. 내가 "승인"이라고 하면 커밋해.</pre></div>
+  <div class="check"><strong>성공 기준</strong> · 결과를 읽고 “승인”을 썼습니다.</div>
+  <p class="tip">결과물은 “승인” 전에 다음으로 넘어가지 않습니다.</p>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">⑪</span><h2>테스트 한 번 돌리고 저장</h2><span class="where">터미널 · 세션이 끝날 때</span></div>
+  <div class="block"><div class="block-top"><span class="block-label">터미널</span><button class="copy" type="button">복사</button></div>
+<pre>pytest -v</pre></div>
+  <p class="note">마지막 줄 숫자를 기억합니다. 예상: <code>2 failed, 6 passed, 3 skipped</code>. 이어서 공통 절차 2·3번.</p>
+  <div class="check"><strong>성공 기준</strong> · <a href="#common">공통 절차 ✓</a> 커밋 완료</div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">⑫</span><h2>MCP 서버 미리 내려받기</h2><span class="where">터미널 · 세션 1 끝</span></div>
+  <p class="note">세션 3의 첫 실행이 느려지지 않게 미리 한 번 받아 둡니다. 인터넷이 필요합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">터미널</span><button class="copy" type="button">복사</button></div>
+<pre>npx -y -p mcp-sqlite@1.0.9 node -v</pre></div>
+  <div class="check"><strong>성공 기준</strong> · Node 버전이 한 줄 나오고 끝납니다. 처음에는 10~30초 걸릴 수 있습니다.</div>
+</section>
+</div>
+<div class="group" id="s2">
+<div class="session-head"><h2 class="session">세션 2 · 명세 → 테스트 → 코드</h2>
+<p class="note">명세(SDD) → 테스트(TDD) → AI 구현. 새 채팅은 AGENTS.md와 SPEC.md를 읽게 합니다.</p></div>
+<section class="step">
+  <div class="step-head"><span class="num">①</span><h2>같은 부탁, 다른 결과</h2><span class="where">Copilot 채팅 (Ask)</span></div>
+  <p class="note">세 명이 같은 부탁을 넣고 결과를 비교합니다. 비교만 하고 파일은 남기지 않습니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">Copilot 채팅</span><button class="copy" type="button">복사</button></div>
+<pre>리뷰가 얼마나 좋은지 온도로 보여 주는 함수 만들어 줘.</pre></div>
+  <p class="note">바뀐 파일이 없는지 확인합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력 · 바뀐 내용</span><button class="copy" type="button">복사</button></div>
+<pre>/diff</pre></div>
+  <div class="check"><strong>핵심</strong> · 결과가 다른 이유는 모호한 부탁입니다.</div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">②</span><h2>AI와 함께 명세서 쓰기</h2><span class="where">Copilot 채팅 (Ask)</span></div>
+  <p class="note">REQUEST.md를 읽고 세 부탁을 차례로 보낸 뒤, SPEC_TEMPLATE.md를 채워 <code>MY_SPEC.md</code>로 저장합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">Copilot 채팅 · 첫째</span><button class="copy" type="button">복사</button></div>
+<pre>REQUEST.md 1차 요청을 읽고, 내가 정해야 할 것을 질문 5개로 물어봐 줘. 코드는 쓰지 마.</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">Copilot 채팅 · 둘째</span><button class="copy" type="button">복사</button></div>
+<pre>REQUEST.md를 읽고, 리뷰 온도 계산 방법을 선택지 2개와 장단점으로 알려 줘. 코드는 쓰지 마.</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">Copilot 채팅 · 셋째</span><button class="copy" type="button">복사</button></div>
+<pre>이 규칙으로 예시표를 만들 때 헷갈리기 쉬운 경계값을 3개 추천해 줘.</pre></div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">③</span><h2>공식 명세와 비교</h2><span class="where">터미널</span></div>
+  <p class="note">내가 쓴 <code>MY_SPEC.md</code>는 그대로 둡니다. 공식 <code>SPEC.md</code>와 나란히 놓고 비교합니다.</p>
+  <p class="note"><code>checkpoints/cp2-spec</code>의 <code>SPEC.md</code>만 복사합니다. 하나만 고릅니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력</span><button class="copy" type="button">복사</button></div>
+<pre>../checkpoints/cp2-spec 폴더의 SPEC.md 한 파일만 지금 폴더에 복사해 줘. 다른 파일은 건드리지 마.</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">Windows</span><button class="copy" type="button">복사</button></div>
+<pre>Copy-Item ..\checkpoints\cp2-spec\SPEC.md .</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">macOS</span><button class="copy" type="button">복사</button></div>
+<pre>cp ../checkpoints/cp2-spec/SPEC.md .</pre></div>
+  <p class="note">MY_SPEC.md와 SPEC.md를 비교합니다. 경계값·반올림·거절 입력을 봅니다.</p>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">④</span><h2>pytest 처음 써 보기</h2><span class="where">warmup 폴더</span></div>
+  <p class="note"><code>warmup/test_orders.py</code>를 새로 만들어 붙여 넣습니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">파일 · warmup/test_orders.py (새 파일)</span><button class="copy" type="button">전체 복사</button></div>
+<pre>from warmup.orders import get_page
+
+
+def test_first_page():  # 1페이지는 0~9번이어야 한다
+    assert get_page(list(range(25)), 1) == list(range(10))</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">터미널</span><button class="copy" type="button">복사</button></div>
+<pre>python -m pytest warmup -v</pre></div>
+  <p class="note">FAILED면 버그를 잡은 것입니다. 남은 버그 둘도 테스트로 씁니다. <code>orders.py</code>는 고치지 않습니다.</p>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">⑤</span><h2>agy 기본 명령</h2><span class="where">agy · 영문 입력 상태에서</span></div>
+  <p class="note"><code>/</code>는 agy 명령, 나머지는 AI에게 하는 부탁입니다. VS Code 터미널에서 켭니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">터미널</span><button class="copy" type="button">복사</button></div>
+<pre>agy</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력 · 사용량</span><button class="copy" type="button">복사</button></div>
+<pre>/usage</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력 · 모델 고르기</span><button class="copy" type="button">복사</button></div>
+<pre>/model</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력 · 기억 공간</span><button class="copy" type="button">복사</button></div>
+<pre>/context</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력 · 요약</span><button class="copy" type="button">복사</button></div>
+<pre>/compact</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력 · 스킬 목록</span><button class="copy" type="button">복사</button></div>
+<pre>/skills</pre></div>
+  <p class="tip">허락 창: 확인·테스트 명령은 2번(항상 허락). 커밋은 “승인” 뒤에만 1번(이번만). 영구 허용은 쓰지 않습니다. 줄 바꿈 <code>Shift+Enter</code>, 멈춤 <code>Esc</code>, 종료 <code>Ctrl+C</code>.</p>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">⑥</span><h2>agy 한도가 끝났을 때</h2><span class="where">선택</span></div>
+  <p class="note"><code>/usage</code>로 한도를 봅니다. 끝났으면 Google AI Studio 무료 API 키(결제 등록 없이)를 만들고 설정에 한 줄을 넣습니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">파일 · ~/.gemini/antigravity-cli/settings.json</span><button class="copy" type="button">복사</button></div>
+<pre>{ "modelProvider": "gemini" }</pre></div>
+  <p class="note">키를 환경 변수로 넣고 agy를 다시 켭니다. <code>내키</code>는 내 키로 바꿉니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">Windows</span><button class="copy" type="button">복사</button></div>
+<pre>$env:GEMINI_API_KEY="내키"</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">macOS</span><button class="copy" type="button">복사</button></div>
+<pre>export GEMINI_API_KEY="내키"</pre></div>
+  <div class="check"><strong>성공 기준</strong> · agy 머리글에 “Gemini API key”. 되돌리려면 modelProvider 줄을 지웁니다.</div>
+  <p class="tip">키는 비밀번호입니다. 채팅·코드·git에 넣지 않고 터미널에만 입력합니다.</p>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">⑦</span><h2>내가 쓰는 테스트 두 개 (Red)</h2><span class="where">tests/test_thermo.py</span></div>
+  <p class="note">경계값을 골라 직접 씁니다. 예시:</p>
+  <div class="block"><div class="block-top"><span class="block-label">파일 · tests/test_thermo.py (새 파일)</span><button class="copy" type="button">전체 복사</button></div>
+<pre>from app.thermo import to_label
+
+
+def test_to_label_half():
+    assert to_label(0.5) == "positive"
+
+
+def test_to_label_just_below():
+    assert to_label(0.4999) == "negative"</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">터미널</span><button class="copy" type="button">복사</button></div>
+<pre>pytest -v</pre></div>
+  <div class="check"><strong>성공 기준</strong> · 내 테스트 둘 다 FAILED. 예상: <code>4 failed, 6 passed, 3 skipped</code>.</div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">⑧</span><h2>나머지 행은 agy 스킬로</h2><span class="where">agy</span></div>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력</span><button class="copy" type="button">복사</button></div>
+<pre>/spec-to-tests to_label to_temperature is_mismatch 내 테스트는 바꾸지 마</pre></div>
+  <p class="note">Copilot: 채팅에 <code>/spec-to-tests</code>가 안 보이면 <code>spec-to-tests 스킬대로 해 줘</code>라고 씁니다.</p>
+  <p class="note">SPEC.md 예시표와 한 줄씩 대조합니다. 내 테스트 2개가 남아 있는지 봅니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">터미널</span><button class="copy" type="button">복사</button></div>
+<pre>pytest -v</pre></div>
+  <div class="check"><strong>성공 기준</strong> · <code>17 failed, 6 passed, 3 skipped</code></div>
+  <p class="note"><a href="#common">공통 절차 ✓</a>로 저장합니다.</p>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">⑨</span><h2>계획 먼저 보기</h2><span class="where">agy · Copilot은 Plan 모드</span></div>
+  <p class="note">계획서를 <code>/artifact</code>로 읽고 승인합니다. <code>app/thermo.py</code>만 바뀌는지 봅니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력</span><button class="copy" type="button">복사</button></div>
+<pre>/plan</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력 · 계획서</span><button class="copy" type="button">복사</button></div>
+<pre>/artifact</pre></div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">⑩</span><h2>구현 맡기기 (Green)</h2><span class="where">Copilot 채팅 (Agent) 또는 agy</span></div>
+  <p class="note">네 칸을 그대로 보냅니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력</span><button class="copy" type="button">전체 복사</button></div>
+<pre>원하는 것: tests/test_thermo.py가 모두 통과하게
+방법 힌트: app/thermo.py의 함수 3개만 채우기
+하지 말 것: SPEC.md와 tests/는 절대 수정하지 않기
+완료 기준: pytest -v 전부 PASSED, 바꾼 파일 보고</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">터미널</span><button class="copy" type="button">복사</button></div>
+<pre>pytest -v</pre></div>
+  <div class="check"><strong>성공 기준</strong> · <code>23 passed, 3 skipped</code>. 화면에서 501이 사라집니다.</div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">⑪</span><h2>수정 범위 확인</h2><span class="where">agy · Copilot은 소스 제어 창</span></div>
+  <p class="note">Green·Refactor 뒤에 확인합니다. Copilot은 소스 제어 창.</p>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력 · 바뀐 내용</span><button class="copy" type="button">복사</button></div>
+<pre>/diff</pre></div>
+  <div class="check"><strong>성공 기준</strong> · <code>app/thermo.py</code>만 보입니다.</div>
+  <p class="note"><code>tests/</code>나 <code>SPEC.md</code>가 바뀌었을 때만 되돌립니다. 직접 할 때는 소스 제어 창의 되돌리기(↶) 버튼.</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 바뀌었을 때만</span><button class="copy" type="button">복사</button></div>
+<pre>tests/와 SPEC.md를 마지막 커밋 상태로 되돌려 줘.</pre></div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">⑫</span><h2>초록불을 지키며 정리 (Refactor)</h2><span class="where">agy</span></div>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력</span><button class="copy" type="button">복사</button></div>
+<pre>tests/는 건드리지 말고 app/thermo.py를 읽기 쉽게 정리해 줘. 숫자에는 이름을 붙이고, 겹치는 코드는 줄여 줘. 끝나면 pytest -v를 다시 돌려 줘.</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력 · 바뀐 내용</span><button class="copy" type="button">복사</button></div>
+<pre>/diff</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">터미널</span><button class="copy" type="button">복사</button></div>
+<pre>pytest -v</pre></div>
+  <div class="check"><strong>성공 기준</strong> · <code>23 passed, 3 skipped</code>. <code>/diff</code>에 thermo.py만 보입니다.</div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">⑬</span><h2>저장하기</h2><span class="where">agy 또는 Copilot 채팅</span></div>
+  <p class="note"><a href="#common">공통 절차 ✓</a>로 저장합니다.</p>
+</section>
+</div>
+<div class="group" id="s3">
+<div class="session-head"><h2 class="session">세션 3 · MCP·스킬 직접 찾아 붙이기</h2>
+<p class="note">MCP·스킬을 찾고 점검하고 설치합니다.</p></div>
+<section class="step">
+  <div class="step-head"><span class="num">3-1</span><h2>찾는 곳과 점검표</h2><span class="where">브라우저</span></div>
+  <div class="table-scroll"><table class="trouble"><thead><tr><th>종류</th><th>찾는 곳</th></tr></thead><tbody>
+<tr><td>MCP 서버</td><td><a href="https://registry.modelcontextprotocol.io" target="_blank" rel="noopener">registry.modelcontextprotocol.io</a></td></tr>
+<tr><td>스킬</td><td><a href="https://github.com/github/awesome-copilot" target="_blank" rel="noopener">github.com/github/awesome-copilot</a> (skills/ 폴더)</td></tr>
+</tbody></table></div>
+  <p class="note">더 많은 곳: 덱 마지막 참고자료.</p>
+  <div class="check"><strong>점검표 · 붙이기 전 확인</strong><ol class="plain">
+<li>누가 만들었나 · 라이선스</li>
+<li>무엇을 읽고 쓰나 · 읽기 전용인가</li>
+<li>밖으로 보내는 데이터와 주소</li>
+<li>키가 필요한가</li>
+<li>스크립트나 실행 명령이 있나</li>
+</ol></div>
+  <p class="tip">목록에 있어도 안전하지 않습니다. 내가 읽고 판단합니다.</p>
+  <p class="tip">예: 3-3의 <code>mcp-sqlite</code>에는 쓰기 도구가 있습니다. 2번 점검의 실제 예입니다.</p>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">3-2</span><h2>Context7을 npm 방식으로 붙이기</h2><span class="where">모두 같이 · VS Code</span></div>
+  <p class="note">Context7은 최신 공식 문서를 찾아 주는 MCP입니다. 내 PC에서 실행되니 3-1 점검표를 대 봅니다.</p>
+  <p class="note">세션 1에서 설치한 Node.js를 씁니다.</p>
+  <p class="note"><strong>A 또는 B 중 하나만.</strong> A: 명령 팔레트(<code>Ctrl+Shift+P</code>, Mac은 <code>Cmd+Shift+P</code>).</p>
+  <div class="block"><div class="block-top"><span class="block-label">VS Code 명령 팔레트</span><button class="copy" type="button">복사</button></div>
+<pre>MCP: Add Server</pre></div>
+  <p class="note">Browse MCP Server(또는 Command (stdio)), 이름 <code>context7</code>, 위치 Workspace.</p>
+  <p class="note">B: <code>.vscode/mcp.json</code>에 씁니다. 다른 서버가 있으면 context7만 추가합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">파일 · .vscode/mcp.json</span><button class="copy" type="button">전체 복사</button></div>
+<pre>{
+  "servers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    }
+  }
+}</pre></div>
+  <p class="note">context7 → Start Server.</p>
+  <div class="block"><div class="block-top"><span class="block-label">VS Code 명령 팔레트</span><button class="copy" type="button">복사</button></div>
+<pre>MCP: List Servers</pre></div>
+  <p class="note">Copilot을 Agent 모드로 두고 Configure Tools에서 context7 도구를 확인합니다. 아래를 보내고 도구 호출을 펼쳐 봅니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">Copilot 채팅</span><button class="copy" type="button">복사</button></div>
+<pre>context7로 FastAPI와 Pydantic의 최신 안정 버전을 찾고, app/schemas.py의 문법이 그 버전에서 맞는지 출처와 함께 알려 줘. 파일은 고치지 마.</pre></div>
+  <p class="note"><strong>agy (선택).</strong> 프로젝트 바로 아래 <code>.agents/mcp_config.json</code>을 만들어 붙여 넣습니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">파일 · .agents/mcp_config.json</span><button class="copy" type="button">전체 복사</button></div>
+<pre>{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    }
+  }
+}</pre></div>
+  <p class="note">저장하고 agy를 다시 켠 뒤 확인합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력</span><button class="copy" type="button">복사</button></div>
+<pre>/mcp list</pre></div>
+  <div class="check"><strong>성공 기준</strong> · 도구 호출에 context7과 출처. agy는 <code>/mcp list</code>.</div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">3-3</span><h2>SQLite MCP 붙이고 말로 물어보기</h2><span class="where">혼자, AI와 함께 · Copilot 채팅 (Agent) 또는 agy</span></div>
+  <p class="note"><code>review-logs</code>는 샘플 DB(<code>data/sample_logs.db</code>)에 말로 물어보게 해 주는 MCP입니다. SQL은 몰라도 됩니다.</p>
+  <p class="note"><strong>설정 부탁.</strong> 바뀔 내용을 읽고 “승인”합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 설정</span><button class="copy" type="button">복사</button></div>
+<pre>review-logs라는 MCP 서버를 .vscode/mcp.json과 .agents/mcp_config.json에 추가해 줘. 실행 명령은 npx -y mcp-sqlite@1.0.9 다음에 DB 경로야. DB는 data/sample_logs.db 이고, VS Code 쪽은 ${workspaceFolder}/data/sample_logs.db, agy 쪽은 data/sample_logs.db 로 써 줘. 고치기 전에 바뀔 내용을 보여 주고 내가 "승인"이라고 하면 저장해.</pre></div>
+  <details class="answer"><summary>정답 설정 (내 결과를 본 뒤)</summary>
+<div class="answer-body">
+  <div class="block"><div class="block-top"><span class="block-label">파일 · .vscode/mcp.json</span><button class="copy" type="button">전체 복사</button></div>
+<pre>{
+  "servers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    },
+    "review-logs": {
+      "command": "npx",
+      "args": ["-y", "mcp-sqlite@1.0.9", "${workspaceFolder}/data/sample_logs.db"]
+    }
+  }
+}</pre></div>
+  <p class="note">agy는 <code>.agents/mcp_config.json</code>에 <code>servers</code> 대신 <code>mcpServers</code>, 경로는 <code>data/sample_logs.db</code>.</p>
+  <p class="note">Windows에서 <code>spawn npx ENOENT</code>가 나면 막혔을 때 표를 봅니다.</p>
+</div></details>
+  <p class="note"><strong>켜기.</strong> review-logs → Start Server. agy는 다시 켜고 확인합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">VS Code 명령 팔레트</span><button class="copy" type="button">복사</button></div>
+<pre>MCP: List Servers</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력</span><button class="copy" type="button">복사</button></div>
+<pre>/mcp list</pre></div>
+  <p class="note"><strong>물어보기.</strong> 차례로 보냅니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 질문 1</span><button class="copy" type="button">복사</button></div>
+<pre>review-logs로 현재 리뷰 기록이 총 몇 개인지 찾아 줘.</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 질문 2</span><button class="copy" type="button">복사</button></div>
+<pre>그중에 긍정 리뷰가 몇 개고 부정 리뷰가 몇 개야?</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 질문 3</span><button class="copy" type="button">복사</button></div>
+<pre>리뷰 글에서 '배송'이라는 단어가 들어간 리뷰는 몇 개야? 긍정과 부정으로 나눠서 보여 줘.</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 질문 4</span><button class="copy" type="button">복사</button></div>
+<pre>내가 이 DB에서 분석가로서 찾을 수 있는 데이터는 또 어떤 게 있을까?</pre></div>
+  <p class="tip">허락 창에서는 읽기 도구만 허락합니다. <code>create_record</code> · <code>update_records</code> · <code>delete_records</code>는 거절합니다.</p>
+  <div class="check"><strong>성공 기준</strong> · 도구 호출에 <code>review-logs</code>가 보이고 답에 숫자가 나옵니다.</div>
+</section>
+
+<section class="step">
+  <div class="step-head"><span class="num">3-4</span><h2>스킬 하나 찾아 설치하고 써 보기</h2><span class="where">브라우저 · agy</span></div>
+  <p class="note">① 브라우저에서 <code>github.com/github/awesome-copilot</code>의 <code>skills/</code>를 둘러봅니다. ② 에이전트에게 찾게 합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력</span><button class="copy" type="button">복사</button></div>
+<pre>pytest에 대해 사용하기 좋은 스킬 좀 찾아봐.</pre></div>
+  <p class="note">공식 저장소인지, description이 맞는지, <code>scripts/</code> 없이 글만 있는지 봅니다.</p>
+  <p class="note">설치 전 <code>SKILL.md</code>를 읽고 3-1 점검표를 댑니다. 묻지 않고 commit하는 스킬은 빨간불입니다.</p>
+  <p class="note"><strong>설치.</strong> SKILL.md를 Raw로 복사해 <code>.agents/skills/&lt;스킬이름&gt;/SKILL.md</code>로 저장합니다. 꺾쇠는 뺍니다.</p>
+  <p class="note">설치된 스킬을 확인합니다 (Copilot은 채팅에 입력).</p>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력</span><button class="copy" type="button">복사</button></div>
+<pre>/skills</pre></div>
+  <p class="note"><code>/스킬이름</code>으로 작은 작업을 맡깁니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력</span><button class="copy" type="button">복사</button></div>
+<pre>/&lt;스킬이름&gt; &lt;대상 파일&gt;</pre></div>
+  <p class="note">바뀐 내용을 봅니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력 · 바뀐 내용</span><button class="copy" type="button">복사</button></div>
+<pre>/diff</pre></div>
+  <p class="note"><strong>스킬이 없으면</strong> <code>.agents/skills/add-educational-comments</code>의 <code>SKILL.md</code>에서 <code>Use only characters available on a standard QWERTY keyboard</code> 줄을 아래로 바꿉니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">파일 · SKILL.md QWERTY 줄 대신</span><button class="copy" type="button">복사</button></div>
+<pre>Comments may be written in Korean.</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력</span><button class="copy" type="button">복사</button></div>
+<pre>/add-educational-comments warmup/orders.py 한국어로</pre></div>
+  <div class="check"><strong>성공 기준</strong> · 스킬이 건드릴 파일만 바뀝니다(<code>SKILL.md</code> 제외). 다른 파일은 되돌리게 합니다.</div>
+  <p class="tip">명령 승인은 확인·테스트 명령만 허용합니다. 삭제는 거절하고 “항상 허용”은 누르지 않습니다.</p>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">3-5</span><h2>정리하기</h2><span class="where">공통 절차 ✓</span></div>
+  <p class="note"><code>.vscode/mcp.json</code>, <code>.agents/mcp_config.json</code>, 스킬 폴더를 <a href="#common">공통 절차 ✓</a>로 저장합니다. 키·비밀번호가 없는지 봅니다.</p>
+  <div class="check"><strong>성공 기준</strong> · <a href="#common">공통 절차 ✓</a> · 커밋에 세 항목이 있습니다.</div>
+</section>
+</div>
+<div class="group" id="s4">
+<div class="session-head"><h2 class="session">세션 4 · 2차 요청: 리뷰 대시보드를 쿼리로 채우기</h2>
+<p class="note">화면은 만들어져 있고, 빈 칸(쿼리)을 채웁니다. “승인” 전에는 넘어가지 않습니다.</p></div>
+<section class="step">
+  <div class="step-head"><span class="num">4-1</span><h2>요청과 빈 대시보드 보기</h2><span class="where">편집기 · 브라우저 · 터미널</span></div>
+  <p class="note"><code>REQUEST.md</code>의 2차 요청과 <code>DASHBOARD.md</code>를 읽습니다. 읽기만 하고 고치지 않습니다.</p>
+  <p class="note">서버를 켜고(세션 1 ⑤) 대시보드를 엽니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">브라우저 주소</span><button class="copy" type="button">복사</button></div>
+<pre>http://localhost:8000/dashboard.html</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">터미널</span><button class="copy" type="button">복사</button></div>
+<pre>python -m pytest tests/test_dashboard.py -v</pre></div>
+  <div class="check"><strong>성공 기준</strong> · 빈 칸 3개 · pytest에 <code>3 skipped</code></div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">4-2</span><h2>주어진 명세로 3칸 채우기</h2><span class="where">agy 또는 Copilot 채팅 (Agent) · 터미널 · 공통 절차 ✓</span></div>
+  <p class="note">카드는 3개입니다: <code>total</code>(총 리뷰 수), <code>by_label</code>(긍정·부정 수), <code>keyword_counts</code>(키워드별 리뷰 수). <code>total</code>부터 합니다. 쿼리를 받고, 숫자를 보고, 넣고, 새로고침합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 쿼리 받기</span><button class="copy" type="button">복사</button></div>
+<pre>review-logs로 DASHBOARD.md의 total 카드에 맞는 SQL을 만들어 실행하고 결과를 보여 줘. 열 이름은 DASHBOARD.md대로.</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 넣기</span><button class="copy" type="button">복사</button></div>
+<pre>방금 쿼리를 app/dashboard.py의 QUERIES["total"]에 넣어 줘. 다른 곳은 고치지 마. 바꿀 내용을 보여 주고 내가 "승인"이라고 하면 저장해.</pre></div>
+  <p class="note">나머지 2칸은 <code>total</code> 자리에 <code>by_label</code>, <code>keyword_counts</code>를 차례로 넣어 같은 두 문장으로 합니다.</p>
+  <p class="note">칸 3개를 채운 뒤 테스트를 돌립니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">터미널</span><button class="copy" type="button">복사</button></div>
+<pre>python -m pytest tests/test_dashboard.py -v</pre></div>
+  <p class="note">실패한 칸이 있으면:</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 실패 시</span><button class="copy" type="button">복사</button></div>
+<pre>이 실패 메시지를 보고 원인을 알려 줘. QUERIES의 해당 카드 쿼리만 고쳐. tests/와 DASHBOARD.md는 고치지 마. 바뀔 내용을 보여 주고 "승인"하면 저장해.</pre></div>
+  <p class="note">모두 초록이면 <a href="#common">공통 절차 ✓</a>로 커밋합니다.</p>
+  <div class="check"><strong>성공 기준</strong> · <code>skipped</code>가 없고 <code>26 passed</code>. 커밋 완료.</div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">4-3</span><h2>내 카드: 명세 → 테스트 → 쿼리</h2><span class="where">agy 또는 Copilot 채팅 (Agent)</span></div>
+  <p class="note">명세 한 줄 → 테스트 → 쿼리. 오전에 배운 순서 그대로입니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 1 명세</span><button class="copy" type="button">복사</button></div>
+<pre>3-3 질문 4에서 나온 제안 중 하나로 DASHBOARD.md 3장 표에 카드 한 줄을 추가해 줘. 키, 뜻, 돌려줄 열, 정렬을 채워. 바뀔 내용을 보여 주고 내가 "승인"이라고 하면 저장해.</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 2 테스트 먼저</span><button class="copy" type="button">복사</button></div>
+<pre>DASHBOARD.md에 방금 추가한 카드 줄로 tests/test_dashboard.py 맨 아래에 테스트 하나를 추가해 줘. 열 이름과 순서가 명세와 같은지, 행이 1개 이상인지만 확인해. 기존 테스트는 고치지 마. 바뀔 내용을 보여 주고 내가 "승인"이라고 하면 저장해.</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">터미널</span><button class="copy" type="button">복사</button></div>
+<pre>python -m pytest tests/test_dashboard.py -v</pre></div>
+  <p class="note">내 카드 테스트 1개만 <code>1 failed</code>. 정상입니다(Red).</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 3 쿼리</span><button class="copy" type="button">복사</button></div>
+<pre>review-logs로 방금 추가한 카드에 맞는 SQL을 만들어 실행하고 결과를 보여 줘. 그다음 app/dashboard.py의 QUERIES에 새 키로 넣을 내용(필요하면 TITLES 제목도)을 보여 주고, 내가 "승인"이라고 하면 저장해.</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">터미널</span><button class="copy" type="button">복사</button></div>
+<pre>python -m pytest tests/test_dashboard.py -v</pre></div>
+  <div class="check"><strong>성공 기준</strong> · 화면에 내 카드가 보이고 <code>27 passed</code>. 커밋은 <a href="#common">공통 절차 ✓</a>.</div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">4-4</span><h2>AI 사수 리뷰 (한 바퀴)</h2><span class="where">agy 또는 Copilot 채팅</span></div>
+  <p class="note">방금 커밋한 내 카드까지 리뷰받습니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 리뷰 받기</span><button class="copy" type="button">복사</button></div>
+<pre>/review-mentor 기준 문서는 DASHBOARD.md야.</pre></div>
+  <p class="note">Copilot: 채팅에 <code>/review-mentor</code>가 안 보이면 <code>review-mentor 스킬대로 해 줘</code>라고 씁니다.</p>
+  <p class="note">표를 읽고 고칠 번호를 고릅니다. 틀린 지적은 버립니다. 번호는 내가 고른 것으로 바꿉니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 고치기</span><button class="copy" type="button">복사</button></div>
+<pre>1번과 3번만 고쳐 줘. QUERIES의 쿼리만 고치고, 고친 뒤 tests/test_dashboard.py를 다시 돌려 줘. tests/와 DASHBOARD.md는 고치지 마.</pre></div>
+  <p class="note">통과하면 <a href="#common">공통 절차 ✓</a>로 커밋합니다. 리뷰는 한 바퀴만 합니다. 시간이 남으면 <code>/review-mentor</code>를 다시 보내 꼭 고침이 0인지 봅니다(선택).</p>
+  <div class="check"><strong>성공 기준</strong> · 고친 뒤 테스트가 모두 passed. 사수는 지적하고, 고칠지는 내가 정합니다.</div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">4-5</span><h2>회고와 스킬 저장</h2><span class="where">agy 또는 Copilot 채팅</span></div>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 규칙 후보</span><button class="copy" type="button">복사</button></div>
+<pre>이번 작업에서 AGENTS.md에 넣으면 좋을 규칙 후보를 3개만 제안해 줘. AI 사수 리뷰에서 같은 지적이 두 번 나왔다면 그것도 후보에 넣어 줘. 파일은 고치지 마.</pre></div>
+  <p class="note">내가 고른 줄만 “승인”해서 넣습니다.</p>
+  <p class="note"><strong>스킬로 남기기.</strong> 반복한 부탁을 스킬로 저장합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 스킬 저장</span><button class="copy" type="button">복사</button></div>
+<pre>오늘 대시보드 칸을 채울 때 반복한 부탁을 스킬로 만들어 줘. 파일은 .agents/skills/dashboard-query/SKILL.md, name은 dashboard-query. description 한 줄, 순서(DASHBOARD.md에서 카드 찾기 → review-logs로 SQL 실행해 결과 보여 주기 → 내가 "승인"하면 QUERIES에 넣기), 하지 말 것(쓰기 쿼리, QUERIES 밖 수정)을 넣어. 바뀔 내용을 보여 주고 내가 "승인"이라고 하면 저장해.</pre></div>
+  <p class="note">agy를 다시 켜고 <code>/</code> 메뉴에 <code>dashboard-query</code>가 보이는지 봅니다. Copilot은 채팅에 <code>/dashboard-query</code>.</p>
+  <p class="note">그다음 <a href="#common">공통 절차 ✓</a>로 커밋합니다.</p>
+  <div class="check"><strong>성공 기준</strong> · 메뉴에 <code>dashboard-query</code>가 보이고 <a href="#common">공통 절차 ✓</a> 커밋 완료.</div>
+  <p class="tip">핵심 · 두 번 한 부탁은 스킬로 남깁니다. 내가 설명할 수 있는 쿼리만 내 것입니다.</p>
+</section>
+</div>
+
+<div class="group" id="opt">
+<div class="session-head"><h2 class="session">선택 과제</h2>
+<p class="note">빨리 끝난 분은 쿠폰 발급, 집에서는 리뷰 클린봇을 합니다. “승인” 뒤에 저장합니다.</p></div>
+<section class="step">
+  <div class="step-head"><span class="num">선택</span><h2>쿠폰 발급 (3차 요청 · 수업 중)</h2><span class="where">agy 또는 Copilot 채팅</span></div>
+  <p class="note"><strong>1 요청 읽기.</strong> REQUEST.md의 3차 요청을 읽습니다. 화면의 쿠폰 버튼을 누르면 “쿠폰 API가 아직 없어요”가 나옵니다. 정상입니다.</p>
+  <p class="note"><strong>2 명세 쓰기.</strong></p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 명세 인터뷰</span><button class="copy" type="button">복사</button></div>
+<pre>/grill-me REQUEST.md의 3차 요청(쿠폰)을 읽고, 쿠폰 API 명세를 정하는 질문을 하나씩 최대 7개 해 줘 (주소 · 요청 필드 · 쿠폰 종류와 금액 · 쿠폰 코드 · 같은 요청을 두 번 보냈을 때 · 잘못된 입력). 끝나면 SPEC_COUPON.md 초안을 보여 줘. 규칙마다 예시표를 붙이고 경계 행을 넣어 줘. 내가 "승인"이라고 하면 저장해.</pre></div>
+  <p class="note">Copilot: <code>/grill-me</code> 대신 맨 앞에 “나를 인터뷰해 줘.”라고 씁니다.</p>
+  <p class="note"><strong>3 공식 명세와 비교.</strong></p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 비교</span><button class="copy" type="button">복사</button></div>
+<pre>SPEC_COUPON.md와 ../checkpoints/coupon/SPEC_COUPON_OFFICIAL.md를 비교해서 다른 점을 표로 보여 줘. 파일은 고치지 마.</pre></div>
+  <p class="note">그다음 공식 명세를 복사합니다. 화면이 공식 약속대로 요청을 보내므로 구현은 공식 명세를 따릅니다. 내 명세는 비교용으로 남깁니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">Windows</span><button class="copy" type="button">복사</button></div>
+<pre>Copy-Item ..\checkpoints\coupon\SPEC_COUPON_OFFICIAL.md .</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">macOS</span><button class="copy" type="button">복사</button></div>
+<pre>cp ../checkpoints/coupon/SPEC_COUPON_OFFICIAL.md .</pre></div>
+  <p class="note"><strong>4 테스트 먼저 (Red).</strong></p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 테스트</span><button class="copy" type="button">복사</button></div>
+<pre>SPEC_COUPON_OFFICIAL.md의 예시표를 tests/test_coupon.py의 pytest 테스트로 옮겨 줘. 표에 없는 행은 넣지 마. 구현은 아직 하지 마. 바뀔 내용을 보여 주고 내가 "승인"이라고 하면 저장해.</pre></div>
+  <p class="note">pytest가 <code>No module named 'app.coupon'</code> 오류로 멈춥니다. 아직 만들지 않아서입니다. 정상입니다(Red).</p>
+  <p class="note"><strong>5 구현 (Green).</strong></p>
+  <div class="block"><div class="block-top"><span class="block-label">에이전트에 입력 · 구현</span><button class="copy" type="button">복사</button></div>
+<pre>SPEC_COUPON_OFFICIAL.md대로 POST /v1/coupons/issue를 만들어 줘. app/coupon.py를 새로 만들고 app/main.py와 app/schemas.py에는 쿠폰에 필요한 것만 더해. tests/와 SPEC 파일은 고치지 마. pytest가 모두 통과할 때까지 고쳐.</pre></div>
+  <p class="note">agy는 앞에 <code>/goal</code>을 붙여도 됩니다. pytest가 모두 passed면 화면에서 쿠폰 버튼을 확인하고 <a href="#common">공통 절차 ✓</a>로 커밋합니다.</p>
+  <p class="note"><strong>6 (확인) 공식 API 테스트.</strong> 공식 API 테스트를 복사해 돌립니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">Windows</span><button class="copy" type="button">복사</button></div>
+<pre>Copy-Item ..\checkpoints\coupon\tests\test_api_coupon.py tests\</pre></div>
+  <div class="block"><div class="block-top"><span class="block-label">macOS</span><button class="copy" type="button">복사</button></div>
+<pre>cp ../checkpoints/coupon/tests/test_api_coupon.py tests/</pre></div>
+  <p class="note">pytest가 모두 passed면 됩니다.</p>
+  <div class="check"><strong>성공 기준</strong> · 화면에서 같은 리뷰로 두 번 눌러도 같은 쿠폰 코드.</div>
+  <p class="tip">핵심 · 같은 요청을 몇 번 보내도 결과가 같다 = 멱등성. 쿠폰이 두 번 나가지 않습니다.</p>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">선택</span><h2>리뷰 클린봇 (4차 요청 · 집에서)</h2><span class="where">agy</span></div>
+  <p class="note">review-thermo 밖에 새 폴더 <code>review-cleanbot</code>을 만들고 <code>docs/04-cleanbot-request.md</code>를 <code>REQUEST.md</code>로 복사합니다. 가상환경·pytest 설치 후 agy를 켭니다. 세션 4와 같은 순서이고, “승인” 뒤에 저장합니다.</p>
+  <div class="block"><div class="block-top"><span class="block-label">agy에 입력 · 인터뷰</span><button class="copy" type="button">복사</button></div>
+<pre>/grill-me REQUEST.md를 읽고 이 프로젝트의 AGENTS.md를 만들려고 해. 프로젝트 소개, 기준 문서, 만드는 파일, 실행 방법, 고치면 안 되는 파일, 일하는 방법, 끝났을 때 보고할 것을 정해야 해. 하나씩 물어봐 줘. 질문은 7개까지. 다 물어본 뒤 초안을 보여 주고, 내가 "승인"이라고 하면 저장해.</pre></div>
+  <p class="note">Copilot: 채팅에 <code>/grill-me</code>가 안 보이면 <code>grill-me 스킬대로 해 줘</code>라고 씁니다.</p>
+</section>
+</div>
+<div class="group" id="stuck">
+<div class="session-head"><h2 class="session">막혔을 때</h2>
+<p class="note">표를 먼저 봅니다. 안 되면 손을 듭니다. 네트워크가 막히면 강사에게 알립니다.</p></div>
+<section class="step">
+  <div class="step-head"><span class="num">①</span><h2>화면과 터미널</h2></div>
+  <div class="table-scroll"><table class="trouble"><thead><tr><th>메시지</th><th>할 일</th></tr></thead><tbody>
+<tr><td colspan="2">먼저 오류 문구를 에이전트에 붙여 원인을 묻습니다.</td></tr>
+<tr><td><code>501</code> “아직 구현되지 않았어요”</td><td>정상. 세션 2 구현 후 사라짐</td></tr>
+<tr><td>쿠폰 버튼에 “쿠폰 API가 아직 없어요”</td><td>정상. 선택 과제에서 만듭니다</td></tr>
+<tr><td><code>422</code> “입력을 확인해 주세요”</td><td>글 1~500자, 별점 1~5</td></tr>
+<tr><td><code>503</code> “AI 부품이 준비 중…”</td><td>잠시 후 재시도. 안 되면 강사</td></tr>
+<tr><td>“서버에 연결할 수 없어요”</td><td><code>uvicorn app.main:app --reload</code> 다시 실행</td></tr>
+<tr><td><code>pytest: command not found</code> / <code>ModuleNotFoundError</code></td><td><code>(.venv)</code> 확인. 없으면 세션 1 ④ 후 <code>pip install -r requirements.txt</code></td></tr>
+<tr><td>테스트 전부 <code>unexpected keyword argument 'app'</code></td><td>가상환경 켜기 → <code>pip install -r requirements.txt</code> → <code>python -m pytest -v</code></td></tr>
+<tr><td>PowerShell 스크립트 차단</td><td><code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code>(한 번, <code>Y</code>). 안 되면 Command Prompt에서 <code>.venv\Scripts\activate.bat</code></td></tr>
+<tr><td><code>python</code> 입력 시 Microsoft Store가 열림</td><td><code>py</code> 사용. 예: <code>py -m venv .venv</code></td></tr>
+<tr><td><code>no tests ran</code> / <code>file or directory not found</code></td><td><code>cd review-thermo</code> 후 다시 실행</td></tr>
+<tr><td><code>Address already in use</code></td><td>서버가 이미 켜짐. 그 터미널에서 <code>Ctrl+C</code></td></tr>
+<tr><td><code>Cannot find path</code> / <code>No such file or directory</code> (checkpoints)</td><td>review-thermo 폴더인지, <code>checkpoints</code>가 나란히 있는지 확인. 없으면 zip 다시 풀기</td></tr>
+<tr><td><code>Author identity unknown</code></td><td>AI에게: <code>이 폴더에만 git 이름과 이메일을 설정해 줘</code></td></tr>
+</tbody></table></div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">②</span><h2>AI 도구</h2></div>
+  <div class="table-scroll"><table class="trouble"><thead><tr><th>증상</th><th>할 일</th></tr></thead><tbody>
+<tr><td><code>agy</code>를 찾을 수 없음</td><td>새 터미널에서 <code>agy --version</code></td></tr>
+<tr><td>agy 무응답 / 로그인 반복</td><td>다시 로그인. 비밀번호는 로그인 화면에만</td></tr>
+<tr><td>Copilot 또는 agy 한도 끝</td><td>남은 도구로 이어 가기. 둘 다 끝나면 브라우저 채팅(수업용 파일만)을 쓰거나 강사에게 알립니다</td></tr>
+<tr><td><code>/review-mentor</code>가 안 보임</td><td>agy 다시 켜기 · 폴더 이름 = <code>name</code> · 대신 프롬프트</td></tr>
+<tr><td>MCP: List Servers에 내 서버 없음</td><td>review-thermo를 열었는지, <code>.vscode/mcp.json</code> 위치, 저장 위치 Workspace 확인</td></tr>
+<tr><td><code>npx</code>를 찾을 수 없음</td><td>Node.js 설치(세션 1 ②-2). 터미널·VS Code를 모두 닫았다가 다시 열기</td></tr>
+<tr><td>PowerShell <code>npx</code> 실행 정책 오류</td><td>세션 1 ④ 실행 정책 명령(<code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code>)</td></tr>
+<tr><td>MCP 서버 Start 후 Error</td><td>Show Output 확인. JSON 쉼표·따옴표. 네트워크면 강사</td></tr>
+<tr><td>Windows에서 <code>review-logs</code>가 Error · <code>spawn npx ENOENT</code> · <code>'npx' is not recognized</code></td><td><code>command</code>를 <code>cmd</code>로, <code>args</code> 맨 앞에 <code>"/c", "npx"</code>를 넣습니다(또는 AI에게 그렇게 고쳐 달라고).</td></tr>
+<tr><td><code>review-logs</code> 처음 실행이 오래 걸림 / 내려받기 실패 (<code>ETIMEDOUT</code>, <code>gyp ERR!</code>)</td><td>세션 1 ⑫의 미리 내려받기를 다시 합니다. 30초쯤 기다려도 안 되면 오류 문구를 붙여 강사에게 알립니다(네트워크가 github.com을 막은 경우)</td></tr>
+<tr><td><code>review-logs</code>의 쓰기 도구(<code>create_record</code> · <code>update_records</code> · <code>delete_records</code>) 허락 창</td><td>거절(Deny). 읽기 도구만 허락합니다</td></tr>
+<tr><td><code>data/sample_logs.db</code>가 바뀜</td><td>AI에게: <code>data/sample_logs.db를 마지막 커밋 상태로 되돌려 줘.</code></td></tr>
+<tr><td>대시보드 칸이 그대로 “쿼리를 채워 주세요”</td><td>저장했는지 확인하고 브라우저 새로고침. 그래도 같으면 서버를 <code>Ctrl+C</code>로 껐다가 다시 켭니다</td></tr>
+<tr><td>대시보드 카드에 “쿼리 오류”</td><td>오류 문구를 에이전트에 붙여 그 카드의 쿼리만 고치게 합니다</td></tr>
+<tr><td>pytest에 <code>skipped</code> 3개</td><td>아직 안 채운 대시보드 칸(세션 4)입니다. 정상입니다. 쿼리를 채우면 passed로 바뀝니다</td></tr>
+<tr><td>agy <code>/mcp list</code>에 <code>review-logs</code> 없음</td><td><code>.agents/mcp_config.json</code> 위치 확인 후 agy 재시작. 안 되면 오류 문구를 agy에 붙여 묻거나 DB 경로를 절대 경로로 바꿔 달라고 부탁합니다. Windows는 <code>cmd /c</code> 설정도 해 봅니다</td></tr>
+<tr><td>Context7 느림 / 한도 오류</td><td>잠시 뒤 재시도. 계속되면 건너뛰고 강사에게 알립니다</td></tr>
+<tr><td>도구 목록에 MCP 도구 없음</td><td>Agent 모드인지, Start를 눌렀는지 확인</td></tr>
+<tr><td><code>Failed to parse frontmatter</code></td><td>SKILL.md 맨 위 <code>---</code> 사이 값에 <code>: </code>가 있으면 큰따옴표로 감쌉니다</td></tr>
+</tbody></table></div>
+</section>
+<section class="step">
+  <div class="step-head"><span class="num">③</span><h2>단계별 완성본</h2></div>
+  <p class="note"><code>checkpoints</code>의 단계별 완성본(비교·참고용)입니다. 내 파일은 바꾸지 않고 열어 보기만 합니다.</p>
+  <div class="table-scroll"><table class="trouble"><thead><tr><th>폴더</th><th>내용</th></tr></thead><tbody>
+<tr><td><code>cp1-setup</code></td><td>AGENTS.md 빈칸 채움 (세션 1 끝)</td></tr>
+<tr><td><code>cp2-spec</code></td><td>공식 SPEC.md</td></tr>
+<tr><td><code>cp3-tdd</code></td><td>thermo.py · tests/test_thermo.py (세션 2 끝)</td></tr>
+<tr><td><code>cp4-tools</code></td><td>세션 3 끝 · Context7, review-logs(<code>mcp-sqlite</code>), 스킬</td></tr>
+<tr><td><code>final</code></td><td>완성본 · 대시보드 카드 3개 + 내 카드 예시, <code>27 passed</code> (보기만 해도 됨)</td></tr>
+<tr><td><code>coupon</code></td><td>선택 과제 쿠폰 발급 완성본 · <code>43 passed</code></td></tr>
+</tbody></table></div>
+</section>
+</div>
+<div class="group" id="safe">
+<div class="session-head"><h2 class="session">안전</h2>
+<div class="tip"><strong>API 키·비밀번호·실제 고객 정보는 AI 채팅과 파일에 넣지 않습니다.</strong></div>
+<ul class="plain note">
+<li>회사 코드도 넣지 않습니다.</li>
+<li>Google 비밀번호는 로그인 화면에만 입력합니다.</li>
+<li>결제 수단은 등록하지 않습니다.</li>
+<li>MCP 신뢰 확인 창에서 처음 보는 주소는 허락하지 않습니다.</li>
+</ul>
+</div>
+</div>
+
+<footer>© 2026 김연지. All rights reserved. 수강생 개인 학습용 · 무단 강의·복제·배포·수정 금지</footer>
+</div>
+
+<script>
+document.querySelectorAll('.copy').forEach(function (btn) {
+  btn.setAttribute('data-label', btn.textContent);
+  btn.addEventListener('click', function () {
+    var label = btn.getAttribute('data-label');
+    if (btn.hasAttribute('data-done')) {
+      btn.removeAttribute('data-done');
+      btn.textContent = label;
+      return;
+    }
+    var pre = btn.closest('.block').querySelector('pre');
+    var text = pre.innerText;
+    function done() {
+      btn.textContent = '복사됨';
+      btn.setAttribute('data-done', '');
+    }
+    function fallback() {
+      var range = document.createRange();
+      range.selectNodeContents(pre);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      btn.textContent = '선택됨 · Ctrl+C';
+      setTimeout(function () { if (!btn.hasAttribute('data-done')) btn.textContent = label; }, 2200);
+    }
+    function legacyCopy() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '0';
+      ta.style.left = '0';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      document.body.removeChild(ta);
+      btn.focus();
+      return ok;
+    }
+    if (legacyCopy()) { done(); return; }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } else { fallback(); }
+    } catch (e) { fallback(); }
+  });
+});
+</script>
+<script>
+(function () {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.envtab'));
+  if (!tabs.length) return;
+  function select(tab, focus) {
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    if (focus) tab.focus();
+    try { localStorage.setItem('review-thermo-env-tab', tab.id); } catch (e) {}
+  }
+  tabs.forEach(function (tab, i) {
+    tab.addEventListener('click', function () { select(tab, false); });
+    tab.addEventListener('keydown', function (e) {
+      var j = -1;
+      if (e.key === 'ArrowRight') j = (i + 1) % tabs.length;
+      else if (e.key === 'ArrowLeft') j = (i + tabs.length - 1) % tabs.length;
+      else if (e.key === 'Home') j = 0;
+      else if (e.key === 'End') j = tabs.length - 1;
+      if (j >= 0) { e.preventDefault(); select(tabs[j], true); }
+    });
+  });
+  try {
+    var saved = localStorage.getItem('review-thermo-env-tab');
+    var found = tabs.filter(function (t) { return t.id === saved; })[0];
+    if (found && found !== tabs[0]) select(found, false);
+  } catch (e) {}
+})();
+</script>
+
+</body></html>

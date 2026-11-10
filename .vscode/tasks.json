@@ -1,0 +1,22 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Review-Thermo Server",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/Python/ai-review-thermo/review-thermo"
+      },
+      "command": "${workspaceFolder}/Python/ai-review-thermo/review-thermo/.venv/Scripts/uvicorn.exe",
+      "args": [
+        "app.main:app",
+        "--reload"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
